@@ -1,0 +1,93 @@
+body{
+    background-color: lightblue;
+}
+
+header{
+    background-color: aquamarine;
+    border: 3px darkcyan dotted;
+    margin-bottom: 15px;
+    font-size: 32px;
+    height: 125px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.flex-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerParagraph{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.headerButton{
+    display: flex;
+    align-items: center;
+    color: blue;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: 35;
+    margin: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border-color: blue;
+    height: 80;
+    transition: background-color, color 100ms;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.60);
+}
+.headerButton:hover{
+    background-color: lightgray;
+    color: darkblue;
+}
+.headerButton:active{
+    box-shadow: none;
+}
+
+.mainBody{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.mainButton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: blue;
+    font-weight: bold;
+    font-size: 25;
+    margin: 18px;
+    padding: 25px;
+    border-radius: 10px;
+    border-color: darkcyan;
+    transition: background-color, color 100ms;
+    box-shadow: 2px 2px 2px 0px rgba(49, 49, 49, 0.6);
+}
+.mainButton:hover{
+    background-color: lightgray;
+    color: darkblue;
+}
+.mainButton:active{
+    box-shadow: none;
+}
+
+.mainParagraph{
+    margin-bottom: 0px;
+}
+
+.material-icons{
+    color: blue;
+    margin: 10px;
+    scale: 180%;
+}
+
+.material-icons#schoolIcon{
+    scale: 250%;
+}
