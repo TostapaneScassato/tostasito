@@ -1,14 +1,44 @@
+:root{
+    --bg: lightblue;
+    --header-bg: aquamarine;
+    --header-border: darkcyan;
+    --text: black;
+    --text-strong: blue;
+    --text-strong-hover: darkblue;
+    --button-hover: lightgray;
+    --table-header-bg: rgb(196, 236, 250);
+    --row-alt-bg: #dbdbdb;
+    --card-bg: whitesmoke;
+    --pie-bg: green;
+}
+
+body.dark {
+    --bg: #141438;
+    --header-bg: #14224b;
+    --header-border: #3a3a3a;
+    --text: #e0e0e0;
+    --text-strong: #82b1ff;
+    --text-strong-hover: #448aff;
+    --table-header-bg: #2a2a2a;
+    --row-alt-bg: #142750;
+    --card-bg: #150e52;
+    --button-hover: #1d1e75;
+    --pie-bg: darkgreen;
+}
+
 body{
-    background-color: lightblue;
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 header{
-    background-color: aquamarine;
-    border: 3px darkcyan dotted;
+    background-color: var(--header-bg);
+    border: 3px var(--header-border) dotted;
     border-radius: 10px;
     margin-bottom: 15px;
     font-size: 32px;
     height: 125px;
+    color: var(--text);
 }
 
 button {
@@ -18,15 +48,17 @@ button {
 h1.inner{
     margin: 20px;
     font-size: 45px;
+    color: var(--text);
 }
 h1.title{
+    color: var(--text);
     font-family:Arial, Helvetica, sans-serif;
 }
 
 table{
     padding: 10px;
     text-align: center;
-    border: 2px black solid;
+    border: 2px var(--text-strong) solid;
     border-radius: 15px;
     font-size: 20px;
 }
@@ -40,11 +72,11 @@ th, td, tr {
 
 th.giorno{
     font-size: 24;
-    background-color: rgb(196, 236, 250);
+    background-color: var(--table-header-bg);
 }
 
 tr:nth-child(odd){
-    background-color: #dbdbdb;
+    background-color: var(--row-alt-bg);
 }
 
 .flex-container{
@@ -56,12 +88,14 @@ tr:nth-child(odd){
 .headerParagraph{
     margin-left: 10px;
     margin-right: 10px;
+    color: var(--text);
 }
 
 .headerButton{
     display: flex;
     align-items: center;
-    color: blue;
+    color: var(--text-strong);
+    background-color: var(--card-bg);
     font-weight: bolder;
     font-style: italic;
     font-size: 30px;
@@ -69,14 +103,14 @@ tr:nth-child(odd){
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;
-    border-color: blue;
+    border-color: var(--text-strong);
     height: 80px;
     transition: background-color, color 100ms;
     box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.60);
 }
 .headerButton:hover{
-    background-color: lightgray;
-    color: darkblue;
+    background-color: var(--button-hover);
+    color: var(--text-strong-hover);
 }
 .headerButton:active{
     box-shadow: none;
@@ -98,19 +132,20 @@ tr:nth-child(odd){
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    color: blue;
+    color: var(--text-strong);
+    background-color: var(--card-bg);
     font-weight: bold;
     font-size: 30px;
     margin: 18px;
     padding: 25px;
     border-radius: 10px;
-    border-color: darkcyan;
+    border-color: var(--header-border);
     transition: background-color, color 100ms;
     box-shadow: 2px 2px 2px 0px rgba(49, 49, 49, 0.6);
 }
 .mainButton:hover{
-    background-color: lightgray;
-    color: darkblue;
+    background-color: var(--button-hover);
+    color: var(--text-strong-hover);
 }
 .mainButton:active{
     box-shadow: none;
@@ -124,7 +159,7 @@ tr:nth-child(odd){
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: var(--card-bg);
     padding: 10px;
     border-radius: 10px;
     margin: 15px;
@@ -141,7 +176,7 @@ tr:nth-child(odd){
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: var(--card-bg);
     padding: 10px;
     border-radius: 10px;
     margin: 15px;
@@ -151,18 +186,17 @@ canvas#pieChart{
     padding: 10px;
     margin: 20px;
     border-radius: 50%;
-    background-color: green;
+    background-color: var(--pie-bg);
 }
 
 #info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .material-icons{
-    color: blue;
+    color: var(--text-strong);
     margin: 10px;
     scale: 180%;
 }
