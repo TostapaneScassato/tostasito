@@ -1,17 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     
+    function updateThemeIcon(){
+        const icon = document.querySelector("#theme-toggle i.material-icons");
+        if (!icon) return;
+        if (document.body.classList.contains("dark")) {
+            icon.textContent = "bedtime"; // luna
+        } else {
+            icon.textContent = "sunny"; // sole
+        }
+    }
+
     function toggleTheme(){
         document.body.classList.toggle("dark");
         localStorage.setItem("theme",
             document.body.classList.contains("dark")? "dark" : "light"
         );
-            const icon = document.querySelector("#theme-toggle i.material-icons");
-        if (localStorage.getItem("theme") === "dark") {
-            document.body.classList.add("dark");
-            icon.textContent = "bedtime";
-        } else {
-            icon.textContent = "sunny";
-        }
+        updateThemeIcon();
     }
     // dichiarazione dei pulsanti
     const homeButton = document.getElementById("homeButton");
@@ -32,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark");
     }
+
+    updateThemeIcon();
+
     document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
 
 
