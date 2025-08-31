@@ -17,7 +17,7 @@ button {
 
 h1.inner{
     margin: 20px;
-    font-size: 40;
+    font-size: 45px;
 }
 h1.title{
     font-family:Arial, Helvetica, sans-serif;
@@ -28,7 +28,7 @@ table{
     text-align: center;
     border: 2px black solid;
     border-radius: 15px;
-    font-size: 18;
+    font-size: 20px;
 }
 
 th, td, tr {
@@ -64,13 +64,13 @@ tr:nth-child(odd){
     color: blue;
     font-weight: bolder;
     font-style: italic;
-    font-size: 35;
+    font-size: 30px;
     margin: 15px;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;
     border-color: blue;
-    height: 80;
+    height: 80px;
     transition: background-color, color 100ms;
     box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.60);
 }
@@ -100,7 +100,7 @@ tr:nth-child(odd){
     justify-content: space-between;
     color: blue;
     font-weight: bold;
-    font-size: 25;
+    font-size: 30px;
     margin: 18px;
     padding: 25px;
     border-radius: 10px;
@@ -134,7 +134,7 @@ tr:nth-child(odd){
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 22;
+    font-size: 30px;
 }
 
 .countdown{
