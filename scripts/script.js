@@ -96,4 +96,92 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><b>Totale giorni:</b> ${totalDays}</p>
         `;
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - verifiche
+
+    const popupOverlay = document.getElementById("popup-overlay");
+    const aggiungiBtn = document.getElementById("newTestButton");
+    const popup =       document.getElementById("testPopup");
+    const chiudiBtn =   document.getElementById("cancelTest");
+    const salvaBtn =    document.getElementById("saveTest");
+    const lista =       document.getElementById("testList");
+    const form =        document.getElementById("add-test-form");
+
+    let verifiche = JSON.parse(localStorage.getItem("verifiche")) || [];
+    
+    function aggiornaLista() {
+        lista.innerHTML = ``;
+
+        verifiche.forEach((v, index) => {
+            const tipo = v.interrogazione ? "Interrogazione" : "Scritta";
+
+            const div = document.createElement("div");
+            div.className = "testItem";
+
+            const info = document.createElement("span");
+            info.textContent = `${v.data} - ${v.materia} (${tipo})`;
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "deleteTest";
+            
+            const icon = document.createElement("i");
+            icon.className = "material-icons";
+            icon.id = "deleteTest";
+            icon.textContent = "delete";
+
+            deleteBtn.appendChild(icon);
+
+            deleteBtn.addEventListener("click", () => {
+                verifiche.splice(index, 1);
+                localStorage.setItem("verifiche", JSON.stringify(verifiche));
+                aggiornaLista();
+            })
+
+            div.appendChild(deleteBtn);
+            div.appendChild(info);
+            lista.appendChild(div);
+        });
+    }
+
+    function apriPopup() {
+        popupOverlay.classList.remove("hidden");
+    }
+    function chiudiPopup() {
+        popupOverlay.classList.add("hidden");
+    }
+
+    aggiungiBtn.addEventListener("click", apriPopup);
+    chiudiBtn.addEventListener("click", chiudiPopup);
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const data = document.getElementById("testDate").value;
+        const materia = document.getElementById("testSubject").value;
+        const interrogazione = document.getElementById("interrogazione").checked;
+
+        if (!data && materia == "null") {
+            alert("Inserisci sia la data che la materia!");
+            return;
+        } else if (!data) {
+            alert("Inserisci la data!");
+            return;
+        } else if (materia == "null") {
+            alert("Inserisci anche la materia!");
+            return;
+        }
+        
+        verifiche.push({data, materia, interrogazione});
+        localStorage.setItem("verifiche", JSON.stringify(verifiche));
+
+        chiudiPopup();
+
+        document.getElementById("testDate").value = "";
+        document.getElementById("testSubject").value = "null";
+        document.getElementById("interrogazione").checked = false;
+    
+        aggiornaLista();
+    });
+    
+    aggiornaLista();
 })
