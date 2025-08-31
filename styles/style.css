@@ -87,6 +87,11 @@ tr:nth-child(odd){
     flex-direction: row;
     justify-content: center;
 }
+.mainBody#schoolManager{
+    flex-direction: column;
+    justify-self: center;
+    width: max-content;
+}
 
 .mainButton{
     display: flex;
@@ -122,6 +127,38 @@ tr:nth-child(odd){
     background-color: whitesmoke;
     padding: 10px;
     border-radius: 10px;
+    margin: 15px;
+}
+
+.graficoInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22;
+}
+
+.countdown{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+canvas#pieChart{
+    padding: 10px;
+    margin: 20px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .material-icons{
