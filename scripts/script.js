@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("theme",
             document.body.classList.contains("dark")? "dark" : "light"
         );
+            const icon = document.querySelector("#theme-toggle i.material-icons");
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+            icon.textContent = "bedtime";
+        } else {
+            icon.textContent = "sunny";
+        }
     }
     // dichiarazione dei pulsanti
     const homeButton = document.getElementById("homeButton");
@@ -26,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("dark");
     }
     document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+
+
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - GRAFICO A TORTA -- COUNTDOWN
     
