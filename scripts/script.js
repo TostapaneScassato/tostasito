@@ -13,6 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="./workInProgress.html";
     })
     schoolButton.addEventListener("click", () => {
-        window.location.href="./workInProgress.html"
+        window.location.href="./schoolManager.html"
     })
 })
