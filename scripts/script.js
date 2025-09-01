@@ -3,17 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateThemeIcon(){
         const icon = document.querySelector("#theme-toggle i.material-icons");
         if (!icon) return;
-        if (document.body.classList.contains("dark")) {
-            icon.textContent = "bedtime"; // luna
-        } else {
+        if (document.body.classList.contains("light")) {
             icon.textContent = "sunny"; // sole
+        } else {
+            icon.textContent = "bedtime"; // luna
         }
     }
 
     function toggleTheme(){
-        document.body.classList.toggle("dark");
+        document.body.classList.toggle("light");
         localStorage.setItem("theme",
-            document.body.classList.contains("dark")? "dark" : "light"
+            document.body.classList.contains("light")? "light" : "dark"
         );
         updateThemeIcon();
     }
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/school"
     })
 
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light");
     }
 
     updateThemeIcon();

@@ -1,4 +1,4 @@
-:root{
+body.light{
     --bg: lightblue;
     --header-bg: aquamarine;
     --header-border: darkcyan;
@@ -13,7 +13,7 @@
     --red: red;
 }
 
-body.dark {
+:root {
     --bg: #141438;
     --header-bg: #14224b;
     --header-border: #3a3a3a;
