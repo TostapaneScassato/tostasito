@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
     //dove portano i movitori
     if (homeButton) homeButton.addEventListener("click", () => {
-        window.location.href="./homePage.html";
+        window.location.href="/home";
     })
     if (settingsButton) settingsButton.addEventListener("click", () => {
-        window.location.href="./Settings.html";
+        window.location.href="/settings";
     })
     if (schoolButton) schoolButton.addEventListener("click", () => {
-        window.location.href="./schoolManager.html"
+        window.location.href="/school"
     })
 
     if (localStorage.getItem("theme") === "dark") {
