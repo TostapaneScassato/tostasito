@@ -79,7 +79,7 @@ $code = http_response_code();
     </mark>
     <h2 id="top">Non sei tu, sono io!</h2>
     <h2 id="bottom">C'è stato un erroe a livello del server, riprova più tardi.</h2>
-    <button onclick="window.location.href='../homePage.html'">
+    <button onclick="window.location.href='/home'">
         <i class="material-icons">home</i>
         <p>Torna alla home</p>
         <i class="material-icons">home</i>
