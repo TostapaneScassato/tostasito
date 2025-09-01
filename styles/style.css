@@ -246,6 +246,8 @@ canvas#pieChart{
     border: 2px var(--text-strong) solid;
     padding: 15px;
     border-radius: 10px;
+    max-height: 276px;
+    overflow-y: auto;
 }
 .testItem{
     margin: 6px;

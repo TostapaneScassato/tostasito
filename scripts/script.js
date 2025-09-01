@@ -113,13 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
         lista.innerHTML = ``;
 
         verifiche.forEach((v, index) => {
-            const tipo = v.interrogazione ? "Interrogazione" : "Scritta";
+            const tipo = v.interrogazione ? "un'interrogazione" : "una verifica";
 
             const div = document.createElement("div");
             div.className = "testItem";
 
             const info = document.createElement("span");
-            info.textContent = `${v.data} - ${v.materia} (${tipo})`;
+            info.textContent = `Il ${v.data} hai ${tipo} di ${v.materia}`;
 
             const deleteBtn = document.createElement("button");
             deleteBtn.className = "deleteTest";
