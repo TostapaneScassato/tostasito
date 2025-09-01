@@ -101,9 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const popupOverlay = document.getElementById("popup-overlay");
     const aggiungiBtn = document.getElementById("newTestButton");
-    const popup =       document.getElementById("testPopup");
     const chiudiBtn =   document.getElementById("cancelTest");
-    const salvaBtn =    document.getElementById("saveTest");
     const lista =       document.getElementById("testList");
     const form =        document.getElementById("add-test-form");
 
@@ -190,8 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const scheduleOverlay   = document.getElementById("schedule-overlay");
     const scheduleBtn       = document.getElementById("newScheduleButton");
     const scheduleForm      = document.getElementById("change-schedule-form");
-    const saveScheduleBtn   = document.getElementById("saveSchedule");
-    const cancelScheduleBtn = document.getElementById("cancelSchedule");
     const mainTable         = document.getElementById("tabellaOrarioMain");
 
     const giorni    = ["lun", "mar", "mer", "gio", "ven", "sab"];
