@@ -58,6 +58,7 @@ h1.title{
 }
 
 table{
+    table-layout: fixed;
     padding: 10px;
     text-align: center;
     border: 2px var(--text-strong) solid;
@@ -187,7 +188,7 @@ canvas#pieChart{
     align-items: center;
 }
 
-.titoloVerifiche{
+.titoloVerifiche, .titoloOrario{
     display: flex;
     align-items: center;
 }
@@ -222,8 +223,8 @@ canvas#pieChart{
     background-color: var(--bg);
     padding: 20px;
     border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
+    min-width: 500px;
+    width: max-content;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     font-size: 25px;
 }
@@ -273,6 +274,9 @@ canvas#pieChart{
 }
 .material-icons#newTestIcon{
     color: var(--text-strong);
+}
+.material-icons#newSchedule{
+    scale: 125%;
 }
 .material-icons#deleteTest:hover{
     color: var(--red);

@@ -24,8 +24,14 @@
 
     <div class="mainBody" id="schoolManager">
         <div class="orarioScolastico">
-            <h1 class="inner">Orario settimanale</h1>
-            <table class="tabellaOrario">
+            <div class="titoloOrario">
+                <h1 class="inner">Orario settimanale</h1>
+                <button class="innerButton" id="newScheduleButton">
+                    <i class="material-icons" id="newSchedule">edit_calendar</i>
+                    <p>Modifica orario</p>
+                </button>
+            </div>
+            <table class="tabellaOrario" id="tabellaOrarioMain">
                 <tr>
                     <mark class="tabellaOrario">
                         <th class="giorno"></th>
@@ -39,59 +45,685 @@
                 </tr>
                 <tr>
                     <th>7:50-8:50</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
                 <tr>
                     <th>8:50-9:50</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
                 <tr>
                     <th>9:50-10:40</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
                 <tr>
                     <th>10:55-11:50</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
                 <tr>
                     <th>11:50-12:50</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
                 <tr>
                     <th>12:50-13:50</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
                 </tr>
             </table>
+            <div class="overlay hidden" id="schedule-overlay">
+                <div class="popup">
+                    <h2 class="inner">Modifica l'orario settimanale</h2>
+                    <form id="change-schedule-form">
+
+                        <table class="tabellaOrario" id="tabellaOrarioForm"> <!-- NON APRIRE, fidati-->
+                            <tr>
+                                <mark class="tabellaOrario">
+                                    <th class="giorno"></th>
+                                    <th class="giorno">Lunedì</th>
+                                    <th class="giorno">Martedì</th>
+                                    <th class="giorno">Mercoledì</th>
+                                    <th class="giorno">Giovedì</th>
+                                    <th class="giorno">Venerdì</th>
+                                    <th class="giorno">Sabato</th>
+                                </mark>
+                            </tr>
+                            <tr>
+                                <th>7:50-8:50</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-1.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>8:50-9:50</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-2.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>9:50-10:40</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-3.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>10:55-11:50</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-4.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>11:50-12:50</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-5.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>12:50-13:50</th>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.1" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.2" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.3" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.4" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.5" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label >
+                                        <select id="subject-6.6" class="scheduleSelect">
+                                            <option value="null"></option>
+                                            <option value="italiano">Italiano</option>
+                                            <option value="storia">Storia</option>
+                                            <option value="inglese">Inglese</option>
+                                            <option value="matematica">Matematica</option>
+                                            <option value="informatica">Informatica</option>
+                                            <option value="telecomunicazioni">Telecomunicazioni</option>
+                                            <option value="tpsi">TPSI</option>
+                                            <option value="sistemi">Sistemi e Reti</option>
+                                            <option value="motoria">Motoria</option>
+                                            <option value="religione">Religione</option>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="popupButtons">
+                            <button class="innerButton" id="saveSchedule">Salva</button>
+                            <button type="reset" class="innerButton" id="cancelSchedule">Annulla</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="countdown">
             <h1 class="inner">Countdown</h1>
@@ -133,6 +765,7 @@
                             <option value="tpsi">TPSI</option>
                             <option value="sistemi">Sistemi e Reti</option>
                             <option value="motoria">Motoria</option>
+                            <option value="religione">Religione</option>
                         </select>
                     </label>
                     <label>

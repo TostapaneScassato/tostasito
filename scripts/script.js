@@ -184,4 +184,100 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     aggiornaLista();
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - TABELLA ORARIO
+
+    const scheduleOverlay   = document.getElementById("schedule-overlay");
+    const scheduleBtn       = document.getElementById("newScheduleButton");
+    const scheduleForm      = document.getElementById("change-schedule-form");
+    const saveScheduleBtn   = document.getElementById("saveSchedule");
+    const cancelScheduleBtn = document.getElementById("cancelSchedule");
+    const mainTable         = document.getElementById("tabellaOrarioMain");
+
+    const giorni    = ["lun", "mar", "mer", "gio", "ven", "sab"];
+    const ore       = [1, 2, 3, 4, 5, 6];
+
+    function generaForm() {
+        scheduleForm.innerHTML = "";
+        ore.forEach((ora, r) => {
+            const rowDiv = document.createElement("div");
+            rowDiv.className = "row";
+            giorni.forEach((g, c) => {
+                const select = document.createElement("select");
+                select.classList.add("scheduleSelect");
+                select.id = `subject-${r+1}.${c+1}`;
+                ["", "Italiano", "Storia", "Inglese", "Matematica", "C. Mate", "Informatica", "Telecom", "TPSI", "Sistemi", "Motoria", "Religione"].forEach(m => {
+                    const opt = document.createElement("option");
+                    opt.value = m;
+                    opt.textContent = m || "-";
+                    select.appendChild(opt);
+                });
+                rowDiv.appendChild(select);
+            });
+            scheduleForm.appendChild(rowDiv);
+        });
+
+        const btnDiv = document.createElement("div");
+        btnDiv.className = "popupButtons";
+        
+        const saveBtn = document.createElement("button");
+        saveBtn.className = "innerButton";
+        saveBtn.id = "saveSchedule";
+        saveBtn.textContent = "Salva";
+        
+        const cancelBtn = document.createElement("button");
+        cancelBtn.className = "innerButton";
+        cancelBtn.id = "cancelSchedule";
+        cancelBtn.type = "reset";
+        cancelBtn.textContent = "Annulla";
+
+        btnDiv.appendChild(saveBtn);
+        btnDiv.appendChild(cancelBtn);
+        scheduleForm.appendChild(btnDiv);
+    }
+
+    function salvaOrario() {
+        const scheduleSelects = scheduleForm.querySelectorAll(".scheduleSelect");
+        const orario = {};
+        scheduleSelects.forEach(sel => orario[sel.id] = sel.value);
+        localStorage.setItem("orario", JSON.stringify(orario));
+        caricaOrario();
+    }
+
+    function caricaOrario() {
+        const orario = JSON.parse(localStorage.getItem("orario")) || {};
+        if (!mainTable) return;
+
+        for (let id in orario) {
+            const [riga, colonna] = id.match(/\d+/g).map(Number);
+            if (mainTable.rows[riga] && mainTable.rows[riga].cells[colonna]) {
+                mainTable.rows[riga].cells[colonna].textContent = orario[id] || "";
+            }
+        }
+
+        scheduleForm.querySelectorAll(".scheduleSelect").forEach(select => {
+            if (orario[select.id] !== undefined) select.value = orario[select.id];
+        });
+    }
+
+    if (scheduleBtn) scheduleBtn.addEventListener("click", () => {
+        scheduleOverlay.classList.remove("hidden");
+        generaForm();
+        caricaOrario();
+
+        document.getElementById("saveSchedule")?.addEventListener("click", e => {
+            e.preventDefault();
+            salvaOrario();
+            scheduleOverlay.classList.add("hidden");
+        });
+
+        document.getElementById("cancelSchedule")?.addEventListener("click", e => {
+            e.preventDefault();
+            scheduleOverlay.classList.add("hidden");
+            caricaOrario();
+        });
+    });
+
+    generaForm();
+    caricaOrario();
 })
