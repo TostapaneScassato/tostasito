@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const rotation = -Math.PI/2;
         
         // date
-        const startDate = new Date("2025-09-16");
-        const endDate = new Date("2026-09-30");
+        const startDate = new Date("2025-09-15");
+        const endDate = new Date("2026-09-29");
         const today = new Date();
         
         // calcolo giorni totali e giorni passati
