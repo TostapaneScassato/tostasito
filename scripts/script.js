@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // date
         const startDate = new Date("2025-09-15");
-        const endDate = new Date("2026-06-29");
+        const endDate = new Date("2026-06-06");
         const today = new Date();
         
         // calcolo giorni totali e giorni passati
