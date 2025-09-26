@@ -7,7 +7,7 @@ $code = http_response_code();
 <head>
     <meta charset="UTF-8">
     <title>ERROR <?php echo $code ?></title>
-    <link rel="icon" type="img/x-icon" href="../assets/img/favicon.ico">
+    <link rel="icon" href="../assets/img/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         body{
