@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const homeButton = document.getElementById("homeButton");
     const settingsButton = document.getElementById("settingsButton");
     const schoolButton = document.getElementById("schoolButton");
+    const loginButton = document.getElementById("loginButton");
     
     //dove portano i movitori
     if (homeButton) homeButton.addEventListener("click", () => {
@@ -30,7 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/settings";
     })
     if (schoolButton) schoolButton.addEventListener("click", () => {
-        window.location.href="/school"
+        window.location.href="/school";
+    })
+    if (loginButton) loginButton.addEventListener("click", () => {
+        window.location.href="/workInProgress";
     })
 
     if (localStorage.getItem("theme") === "light") {

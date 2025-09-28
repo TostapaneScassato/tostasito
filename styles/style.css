@@ -142,6 +142,8 @@ tr:nth-child(odd){
     margin: 18px;
     padding: 25px;
     border-radius: 10px;
+    min-width: 20%;
+    max-width: 40%;
     border-color: var(--text-strong);
     transition: background-color, color 100ms;
     box-shadow: 2px 2px 2px 0px rgba(49, 49, 49, 0.6);
@@ -282,4 +284,23 @@ canvas#pieChart{
 }
 .material-icons#deleteTest:hover{
     color: var(--red);
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    min-width: 65%;
+    justify-items: center;
+    align-items: center;
+}
+.loginInput {
+    margin-bottom: 10px;
+    max-width: 75%;
+    min-width: 40%;
+    min-height: 45px;
+    font-size: larger;
+    border-radius: 4px;
 }
