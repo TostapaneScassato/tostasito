@@ -19,7 +19,10 @@
             <h1 class="title">Gestore scolastico</h1>
         </div>
         <div class="right">
-            <!-- rimane vuoto, serve solo a centrare il div.center -->
+            <button class="headerButton" id="blank">
+                <i class="material-icons" id="blank">home</i>
+                <p class="headerParagraph" id="blank">Home</p>
+            </button>
         </div>
     </header>
 
@@ -71,7 +74,7 @@
             </table>
             <div class="overlay hidden" id="schedule-overlay">
                 <div class="popup">
-                    <h2 class="inner">Modifica l'orario settimanale</h2>
+                    <h1 class="inner">Modifica l'orario settimanale</h1>
                     <form id="change-schedule-form">
                         <table class="tabellaOrario" id="tabellaOrarioForm"></table>
                         <div class="popupButtons">
@@ -101,33 +104,35 @@
                 <div class="testList" id="testList"></div>
             </div>
             <div class="overlay hidden" id="popup-overlay">
-                <div class="popup">
-                    <h2 class="inner">Aggiungi una nuova verifica</h2>
+                <div class="popup" id="newTest">
+                    <h1 class="inner">Aggiungi una nuova verifica</h1>
                     <form id="add-test-form">
-                        <label>
-                            Data:
-                            <input type="date" id="testDate">
-                        </label>
-                        <label >
-                            Materia:
-                            <select id="testSubject">
-                                <option value="null">Scegli un'opzione</option>
-                                <option value="italiano">Italiano</option>
-                                <option value="storia">Storia</option>
-                                <option value="inglese">Inglese</option>
-                                <option value="matematica">Matematica</option>
-                                <option value="informatica">Informatica</option>
-                                <option value="telecomunicazioni">Telecomunicazioni</option>
-                                <option value="tpsi">TPSI</option>
-                                <option value="sistemi">Sistemi e Reti</option>
-                                <option value="motoria">Motoria</option>
-                                <option value="religione">Religione</option>
-                            </select>
-                        </label>
-                        <label>
-                            Interrogazione
-                            <input type="checkbox" id="interrogazione">
-                        </label>
+                        <div class="testInputs">
+                            <label class="testLabel">
+                                    Data:
+                                    <input type="date" id="testDate">
+                                </label>
+                                <label class="testLabel">
+                                    Materia:
+                                    <select id="testSubject">
+                                        <option value="null">Scegli un'opzione</option>
+                                        <option value="italiano">Italiano</option>
+                                        <option value="storia">Storia</option>
+                                        <option value="inglese">Inglese</option>
+                                        <option value="matematica">Matematica</option>
+                                        <option value="informatica">Informatica</option>
+                                        <option value="telecomunicazioni">Telecomunicazioni</option>
+                                        <option value="tpsi">TPSI</option>
+                                        <option value="sistemi">Sistemi e Reti</option>
+                                        <option value="motoria">Motoria</option>
+                                        <option value="religione">Religione</option>
+                                    </select>
+                                </label>
+                                <label class="testLabel">
+                                    Interrogazione
+                                    <input type="checkbox" id="interrogazione">
+                                </label>
+                        </div>
                         <div class="popupButtons">
                             <button class="innerButton" id="saveTest">Salva</button>
                             <button type="reset" class="innerButton" id="cancelTest">Annulla</button>
