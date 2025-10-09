@@ -199,13 +199,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generaForm() {
         scheduleForm.innerHTML = "";
-        ore.forEach((ora, r) => {
+        ore.forEach((r) => {
             const rowDiv = document.createElement("div");
             rowDiv.className = "row";
+            rowDiv.style.height = "8%";
+            rowDiv.style.marginBottom = "10px";
             giorni.forEach((g, c) => {
                 const select = document.createElement("select");
                 select.classList.add("scheduleSelect");
                 select.id = `subject-${r+1}.${c+1}`;
+                select.style.width = "16%";
+                select.style.height = "100%";
+                select.style.marginLeft = "5px";
                 ["", "Italiano", "Storia", "Inglese", "Matematica", "C. Mate", "Informatica", "Telecom", "TPSI", "Sistemi", "Motoria", "Religione"].forEach(m => {
                     const opt = document.createElement("option");
                     opt.value = m;
