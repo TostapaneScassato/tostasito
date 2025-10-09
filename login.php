@@ -56,16 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === $_POST) {
       </div>
         
       <div class="right">
-         <!-- vuoto, esiste solo per centrare div.center-->
+         <button class="headerButton" id="blank">
+            <i class="material-icons" id="blank">arrow_back</i>
+            <p class="headerParagraph" id="blank">Annulla</p>
+         </button>
       </div>
    </header>
 
    <div class="mainBody">
       <form class="loginForm">
-         <input type="text" name="user_email" placeholder="Username or E-Mail" required class="loginInput">
-         <input type="password" name="user_password" placeholder="Password" required class="loginInput">
-         
-         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="forgotPassword">Password dimenticata?</a>
+         <input type="text" name="user_email" placeholder="Username or E-Mail" class="loginInput" required>
+         <input type="password" name="user_password" placeholder="Password" class="loginInput" required>
+         <div class="loginConfirm">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="loginInput" id="forgotPassword">Password dimenticata?</a>
+            <button class="innerButton">
+               <i class="material-icons" id="loginIcon">login</i>
+               <p class="innerParagraph" >Effettua l'accesso</p>
+            </button>
+         </div>
+         <hr>
       </form>
    </div>
 
