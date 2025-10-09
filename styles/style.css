@@ -118,6 +118,13 @@ tr:nth-child(odd){
 .headerButton:active{
     box-shadow: none;
 }
+#blank {
+    background-color: var(--header-bg);
+    border: none;
+    box-shadow: none;
+    color: var(--header-bg);
+    cursor: default;
+}
 
 .mainBody{
     display: flex;
@@ -195,13 +202,51 @@ canvas#pieChart{
     align-items: center;
 }
 
+#change-schedule-form {
+    height: 75%;
+}
+select.sheduleSelect {
+    width: 100px;
+}
+#add-test-form {
+    padding-top: 3%;
+}
+
+.testInputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    justify-content: center;
+    height: max-content;
+    justify-self: center;
+}
+.testLabel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-items: center;
+    font-size: 40px;
+}
+#testDate, #testSubject {
+    margin-top: 100px;
+    font-size: x-large;
+    align-self: center;
+    justify-self: center;
+    margin: 2%;
+}
+#interrogazione {
+    scale: 1.6;
+}
+
 .innerButton{
     display: flex;
     flex-direction: row;
     font-size: 15px;
     align-items: center;
     justify-content: center;
-    height: min-content;
+    height: max-content;
     background-color: var(--card-bg);
     color: var(--text-strong);
     border: 2px var(--text-strong) solid;
@@ -225,18 +270,31 @@ canvas#pieChart{
     background-color: var(--bg);
     padding: 20px;
     border-radius: 12px;
-    min-width: 500px;
-    width: max-content;
+    min-width: 300px;
+    width: 70%;
+    max-width: 100%;
+    height: 60%;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     font-size: 25px;
 }
+.popup#newTest {
+    height: 40%;
+}
 
 .popupButtons{
-    margin-top: 15px;
+    margin-top: 35px;
+    min-height: 15%;
     display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    font-size: 25px;
+    justify-content: center;
+    gap: 10%;
+}
+.innerButton#saveSchedule, .innerButton#cancelSchedule,
+.innerButton#saveTest, .innerButton#cancelTest {
+    height: auto;
+    min-width: max-content;
+    width: 20%;
+
+    font-size: larger;
 }
 
 .hidden{
@@ -268,19 +326,23 @@ canvas#pieChart{
 }
 
 .material-icons{
-    color: var(--text-strong);
     margin: 10px;
     scale: 180%;
 }
 
 .material-icons#schoolIcon{
+    color: var(--text-strong);
     scale: 250%;
 }
 .material-icons#newTestIcon{
     color: var(--text-strong);
 }
 .material-icons#newSchedule{
+    color: var(--text-strong);
     scale: 125%;
+}
+.material-icons#deleteTest {
+    color: var(--text-strong);
 }
 .material-icons#deleteTest:hover{
     color: var(--red);
@@ -297,10 +359,28 @@ canvas#pieChart{
     align-items: center;
 }
 .loginInput {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     max-width: 75%;
     min-width: 40%;
     min-height: 45px;
     font-size: larger;
     border-radius: 4px;
+    text-align: center;
+}
+.loginInput#forgotPassword {
+    color: var(--text-strong);
+    align-content: center;
+}
+.innerParagraph {
+    font-size: larger;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.loginConfirm {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
 }
