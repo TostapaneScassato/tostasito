@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // calcolo angoli in radianti
         const passedAngle = (daysPassed / totalDays) * 2 * Math.PI;
-        const remainingAngle = 2 * Math.PI - passedAngle;
+        //const remainingAngle = 2 * Math.PI - passedAngle;
         
         // disegno grafico a torta
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -93,12 +93,49 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const daysRemaining = totalDays - daysPassed;
         
+        // festività
+        const holidays = [
+            ["lla Festa di Tutti i Santi", "2025-11-01"],
+            ["l Patrono di Scandiano", "2025-11-25"],
+            ["l'Immacolata Concezione", "2025-12-08"],
+            ["lle VACANZE DI NATALE", "2025-12-24"],
+            ["lle VACANZE DI PASQUA", "2026-04-02"],
+            ["lla Liberazione", "2026-04-25"],
+            ["lla Festa del Lavoro", "2026-05-01"],
+            ["lla Festa della Repubblica", "2026-06-02"],
+            ["lla FINE DELLA SCUOLAAAAAA", "2026-06-06"]
+        ]
+
+        let nextHoliday = null;
+        let daysToHoliday = null;
+
+        for (let i = 0; i < holidays.length; i++) {
+            const name = holidays[i][0];
+            const date = new Date(holidays[i][1]);
+            const diffDays = Math.ceil((date - today) / (1000*60*60*24));
+
+            if (diffDays >= 0) {
+                nextHoliday = name;
+                daysToHoliday = diffDays;
+                break;
+            }
+        }
+
         const infoDiv = document.getElementById("info");
+
+        let holidayText = "";
+        if (nextHoliday) {
+            holidayText = `<p><b>Mancano </b> ${daysToHoliday} giorni a<b>${nextHoliday}</b></p>`;
+        } else {
+            holidayText = `<p>E' estate!!</p>`;
+        }
+
         infoDiv.innerHTML = `
         <p><b>Giorni passati:</b> ${daysPassed}</p>
         <p><b>Giorni da sopportare:</b> ${daysRemaining}</p>
-        <p><b>Totale giorni:</b> ${totalDays}</p>
+        ${holidayText}
         `;
+        //<p><b>Totale giorni:</b> ${totalDays}</p>
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - verifiche
