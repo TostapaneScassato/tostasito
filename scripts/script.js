@@ -98,13 +98,47 @@ document.addEventListener("DOMContentLoaded", () => {
             ["lla Festa di Tutti i Santi", "2025-11-01"],
             ["l Patrono di Scandiano", "2025-11-25"],
             ["l'Immacolata Concezione", "2025-12-08"],
-            ["lle VACANZE DI NATALE", "2025-12-24"],
-            ["lle VACANZE DI PASQUA", "2026-04-02"],
+            ["lle VACANZE DI NATALE", ["2025-12-24", "2026-01-06"]],
+            ["lle VACANZE DI PASQUA", ["2026-04-02", "2026-04-07"]],
             ["lla Liberazione", "2026-04-25"],
             ["lla Festa del Lavoro", "2026-05-01"],
             ["lla Festa della Repubblica", "2026-06-02"],
             ["lla FINE DELLA SCUOLAAAAAA", "2026-06-06"]
         ]
+
+        function countSchoolDays(fromDate, toDate, holidays) {
+            let count = 0;
+
+            const singleDays = new Set();
+
+            holidays.forEach(h => {
+                const data = h[1];
+                if (Array.isArray(data)) {
+                    // periodo natalizio o pasquale
+                    let d1 = new Date(data[0]);
+                    const d2 = new Date(data[1]);
+                    while (d1 <= d2) {
+                        singleDays.add(d1.toDateString());
+                        d1.setDate(d1.getDate() + 1);
+                    }
+                } else {
+                    // altri giorni singoli
+                    singleDays.add(new Date(data).toDateString());
+                }
+            });
+
+            let d = new Date(fromDate);
+            while (d <= toDate) {
+                const isSunday = d.getDay() === 0;
+                const isHoliday = singleDays.has(d.toDateString());
+
+                if (!isSunday && !isHoliday) count++;
+                d.setDate(d.getDate() + 1);
+            }
+            return count;
+        }
+
+        const effectiveDaysRemaining = countSchoolDays(startDate, endDate, holidays);
 
         let nextHoliday = null;
         let daysToHoliday = null;
@@ -132,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         infoDiv.innerHTML = `
         <p><b>Giorni passati:</b> ${daysPassed}</p>
-        <p><b>Giorni da sopportare:</b> ${daysRemaining}</p>
+        <p><b>Giorni da sopportare:</b> ${effectiveDaysRemaining}</p>
         ${holidayText}
         `;
         //<p><b>Totale giorni:</b> ${totalDays}</p>
