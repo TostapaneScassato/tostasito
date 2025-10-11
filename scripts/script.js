@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let holidayText = "";
         if (nextHoliday) {
-            holidayText = `<p><b>Mancano </b> ${daysToHoliday} <b> giorni </b> a${nextHoliday}</p>`;
+            holidayText = `<p style="text-align:center;"><b>Mancano </b> ${daysToHoliday} <b> giorni </b><br> a${nextHoliday}</p>`;
         } else {
             holidayText = `<p>E' estate!!</p>`;
         }
