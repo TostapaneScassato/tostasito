@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/settings";
     })
     if (schoolButton) schoolButton.addEventListener("click", () => {
-        //window.location.href="/school";
-        window.location.href="/maintenance";
+        window.location.href="/school";
     })
     if (loginButton) loginButton.addEventListener("click", () => {
         window.location.href="/workInProgress";
