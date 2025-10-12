@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/settings";
     })
     if (schoolButton) schoolButton.addEventListener("click", () => {
-        window.location.href="/school";
+        //window.location.href="/school";
+        window.location.href="/maintenance";
     })
     if (loginButton) loginButton.addEventListener("click", () => {
         window.location.href="/workInProgress";
@@ -262,58 +263,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const scheduleOverlay   = document.getElementById("schedule-overlay");
     const scheduleBtn       = document.getElementById("newScheduleButton");
-    const scheduleForm      = document.getElementById("change-schedule-form");
+    const scheduleFormDiv   = document.getElementById("formRows");
     const mainTable         = document.getElementById("tabellaOrarioMain");
 
     const giorni    = ["lun", "mar", "mer", "gio", "ven", "sab"];
     const ore       = [1, 2, 3, 4, 5, 6];
 
     function generaForm() {
-        scheduleForm.innerHTML = "";
+        scheduleFormDiv.innerHTML = "";
+
         ore.forEach((r) => {
             const rowDiv = document.createElement("div");
             rowDiv.className = "row";
-            rowDiv.style.height = "8%";
-            rowDiv.style.marginBottom = "10px";
+            rowDiv.style.display = "flex";
+            rowDiv.style.gap     = "5px"
+            rowDiv.style.height  = "40px";
             giorni.forEach((g, c) => {
                 const select = document.createElement("select");
                 select.classList.add("scheduleSelect");
-                select.id = `subject-${r+1}.${c+1}`;
-                select.style.width = "16%";
-                select.style.height = "100%";
-                select.style.marginLeft = "5px";
+                select.id = `subject-${r}.${c+1}`;
+                select.style.flex = "1";
                 ["", "Italiano", "Storia", "Inglese", "Matematica", "C. Mate", "Informatica", "Telecom", "TPSI", "Sistemi", "Motoria", "Religione"].forEach(m => {
                     const opt = document.createElement("option");
                     opt.value = m;
-                    opt.textContent = m || "-";
+                    opt.textContent = m || "---";
+                    opt.style = "text-align:center";
                     select.appendChild(opt);
                 });
                 rowDiv.appendChild(select);
             });
-            scheduleForm.appendChild(rowDiv);
+            scheduleFormDiv.appendChild(rowDiv);
         });
-
-        const btnDiv = document.createElement("div");
-        btnDiv.className = "popupButtons";
-        
-        const saveBtn = document.createElement("button");
-        saveBtn.className = "innerButton";
-        saveBtn.id = "saveSchedule";
-        saveBtn.textContent = "Salva";
-        
-        const cancelBtn = document.createElement("button");
-        cancelBtn.className = "innerButton";
-        cancelBtn.id = "cancelSchedule";
-        cancelBtn.type = "reset";
-        cancelBtn.textContent = "Annulla";
-
-        btnDiv.appendChild(saveBtn);
-        btnDiv.appendChild(cancelBtn);
-        scheduleForm.appendChild(btnDiv);
     }
 
     function salvaOrario() {
-        const scheduleSelects = scheduleForm.querySelectorAll(".scheduleSelect");
+        const scheduleSelects = scheduleFormDiv.querySelectorAll(".scheduleSelect");
         const orario = {};
         scheduleSelects.forEach(sel => orario[sel.id] = sel.value);
         localStorage.setItem("orario", JSON.stringify(orario));
@@ -322,36 +306,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function caricaOrario() {
         const orario = JSON.parse(localStorage.getItem("orario")) || {};
-        if (!mainTable) return;
 
         for (let id in orario) {
             const [riga, colonna] = id.match(/\d+/g).map(Number);
-            if (mainTable.rows[riga] && mainTable.rows[riga].cells[colonna]) {
-                mainTable.rows[riga].cells[colonna].textContent = orario[id] || "";
+            const tableRow = mainTable.rows[riga];
+            if (tableRow && tableRow.cells[colonna]) {
+                tableRow.cells[colonna].textContent = orario[id] || "";
             }
         }
 
-        scheduleForm.querySelectorAll(".scheduleSelect").forEach(select => {
+        scheduleFormDiv.querySelectorAll(".scheduleSelect").forEach(select => {
             if (orario[select.id] !== undefined) select.value = orario[select.id];
         });
     }
 
-    if (scheduleBtn) scheduleBtn.addEventListener("click", () => {
+    scheduleBtn.addEventListener("click", () => {
         scheduleOverlay.classList.remove("hidden");
         generaForm();
         caricaOrario();
+    });
 
-        document.getElementById("saveSchedule")?.addEventListener("click", e => {
-            e.preventDefault();
-            salvaOrario();
-            scheduleOverlay.classList.add("hidden");
-        });
+    document.getElementById("saveSchedule").addEventListener("click", e => {
+        e.preventDefault();
+        salvaOrario();
+        scheduleOverlay.classList.add("hidden");
+    });
 
-        document.getElementById("cancelSchedule")?.addEventListener("click", e => {
-            e.preventDefault();
-            scheduleOverlay.classList.add("hidden");
-            caricaOrario();
-        });
+    document.getElementById("cancelSchedule")?.addEventListener("click", e => {
+        e.preventDefault();
+        scheduleOverlay.classList.add("hidden");
+        caricaOrario();
     });
 
     generaForm();

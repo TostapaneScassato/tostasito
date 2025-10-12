@@ -36,16 +36,14 @@
                 </button>
             </div>
             <table class="tabellaOrario" id="tabellaOrarioMain">
-                <tr>
-                    <mark class="tabellaOrario">
-                        <th class="giorno"></th>
-                        <th class="giorno">Lunedì</th>
-                        <th class="giorno">Martedì</th>
-                        <th class="giorno">Mercoledì</th>
-                        <th class="giorno">Giovedì</th>
-                        <th class="giorno">Venerdì</th>
-                        <th class="giorno">Sabato</th>
-                    </mark>
+                <tr class="tabellaOrario">
+                    <th class="giorno"></th>
+                    <th class="giorno">Lunedì</th>
+                    <th class="giorno">Martedì</th>
+                    <th class="giorno">Mercoledì</th>
+                    <th class="giorno">Giovedì</th>
+                    <th class="giorno">Venerdì</th>
+                    <th class="giorno">Sabato</th>
                 </tr>
                 <tr>
                     <th>7:50-8:50</th>
@@ -76,10 +74,10 @@
                 <div class="popup">
                     <h1 class="inner">Modifica l'orario settimanale</h1>
                     <form id="change-schedule-form">
-                        <table class="tabellaOrario" id="tabellaOrarioForm"></table>
+                        <div id="formRows"></div>
                         <div class="popupButtons">
                             <button class="innerButton" id="saveSchedule">Salva</button>
-                            <button type="reset" class="innerButton" id="cancelSchedule">Annulla</button>
+                            <button type="button" class="innerButton" id="cancelSchedule">Annulla</button>
                         </div>
                     </form>
                 </div>
