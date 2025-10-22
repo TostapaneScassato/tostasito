@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const effectiveDaysRemaining = countSchoolDays(startDate, endDate, holidays);
+        const daysToSufferThrough = countSchoolDays(today, endDate, holidays);
 
         let nextHoliday = null;
         let daysToHoliday = null;
@@ -166,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         infoDiv.innerHTML = `
         <p><b>Giorni passati:</b> ${daysPassed}</p>
-        <p><b>Giorni da sopportare:</b> ${effectiveDaysRemaining}</p>
+        <p><b>Giorni da sopportare:</b> ${daysToSufferThrough}</p>
         ${holidayText}
         `;
         //<p><b>Totale giorni:</b> ${totalDays}</p>
