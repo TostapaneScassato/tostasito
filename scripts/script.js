@@ -91,8 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "#ddd"; // colore dei giorni futuri
         ctx.fill();
         
-        const daysRemaining = totalDays - daysPassed;
-        
         // festività
         const holidays = [
             ["lla Festa di Tutti i Santi", "2025-11-01"],
@@ -138,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return count;
         }
 
-        const effectiveDaysRemaining = countSchoolDays(startDate, endDate, holidays);
         const daysToSufferThrough = countSchoolDays(today, endDate, holidays);
 
         let nextHoliday = null;
