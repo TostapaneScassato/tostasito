@@ -2,11 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function updateThemeIcon(){
         const icon = document.querySelector("#theme-toggle i.material-icons");
+        const paragraph = document.querySelector("#theme-toggle p.mainParagraph");
         if (!icon) return;
         if (document.body.classList.contains("light")) {
             icon.textContent = "sunny"; // sole
+            paragraph.textContent = "Tema chiaro";
         } else {
             icon.textContent = "bedtime"; // luna
+            paragraph.textContent = "Tema scuro";
         }
     }
 
