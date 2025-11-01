@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const startDate = new Date("2025-09-15");
         const endDate = new Date("2026-06-06");
         const today = new Date();
-        
+
         // calcolo giorni totali e giorni passati
         const totalDays = Math.floor((endDate - startDate) / (1000*60*60*24));
         let daysPassed = Math.floor((today - startDate) / (1000*60*60*24));
@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // calcolo angoli in radianti
         const passedAngle = (daysPassed / totalDays) * 2 * Math.PI;
-        //const remainingAngle = 2 * Math.PI - passedAngle;
         
         // disegno grafico a torta
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -75,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const centerY = canvas.height/2;
         const radius = 150;
         
-        // parte passata (verde → rosso in base al progresso)
+        // parte passata
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.arc(centerX, centerY, radius, 0 + rotation, passedAngle + rotation);
