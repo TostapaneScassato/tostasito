@@ -1,12 +1,12 @@
 <?php
-$code = http_response_code();
+$code = $_GET['code'] ?? 500;
 ?>
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>ERROR <?php echo $code ?></title>
+    <title>ERROR <?php echo htmlspecialchars($code) ?></title>
     <link rel="icon" href="../assets/img/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -75,7 +75,7 @@ $code = http_response_code();
 <body>
     <mark>
         <i class="material-icons" id="title">warning</i>
-        <h1 class="title">ERRORE <?php echo $code ?></h1>
+        <h1 class="title">ERRORE <?php echo htmlspecialchars($code) ?></h1>
         <i class="material-icons" id="title">warning</i>
     </mark>
     <h2 id="top">Non sei tu, sono io!</h2>
