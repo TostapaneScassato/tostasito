@@ -96,8 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
             ["lla Festa di Tutti i Santi", "2025-11-01"],
             ["l Patrono di Scandiano", "2025-11-25"],
             ["l'Immacolata Concezione", "2025-12-08"],
-            ["lle VACANZE DI NATALE", ["2025-12-24", "2026-01-06"]],
-            ["lle VACANZE DI PASQUA", ["2026-04-02", "2026-04-07"]],
+            ["lle VACANZE DI NATALE", "2025-12-24"],
+            ["lla fine delle VACANZE DI NATALE :(", "2026-01-06"],
+            ["lle VACANZE DI PASQUA", "2026-04-02"],
+            ["lla fine delle VACANZE DI PASQUA", "2026-04-07"],
             ["lla Liberazione", "2026-04-25"],
             ["lla Festa del Lavoro", "2026-05-01"],
             ["lla Festa della Repubblica", "2026-06-02"],
@@ -111,18 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             holidays.forEach(h => {
                 const data = h[1];
-                if (Array.isArray(data)) {
-                    // periodo natalizio o pasquale
-                    let d1 = new Date(data[0]);
-                    const d2 = new Date(data[1]);
-                    while (d1 <= d2) {
-                        singleDays.add(d1.toDateString());
-                        d1.setDate(d1.getDate() + 1);
-                    }
-                } else {
-                    // altri giorni singoli
-                    singleDays.add(new Date(data).toDateString());
-                }
+                singleDays.add(new Date(data).toDateString());
             });
 
             let d = new Date(fromDate);
