@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const date = new Date(holidays[i][1]);
             const diffDays = Math.ceil((date - today) / (1000*60*60*24));
 
-            if (diffDays >= 0) {
+            if (diffDays > 0) {
                 nextHoliday = name;
                 daysToHoliday = diffDays;
                 break;
