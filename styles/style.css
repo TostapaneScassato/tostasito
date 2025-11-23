@@ -186,6 +186,27 @@ tr:nth-child(odd){
     font-size: 30px;
 }
 
+canvas#pieChart:hover {
+    cursor: help;
+}
+
+canvas#pieChart:hover + .tooltipInfo {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.tooltipInfo {
+    opacity: 0;
+    background-color: var(--row-alt-bg);
+    position: absolute;
+    border-radius: 10%;
+    padding: 4px 8px;
+    font-size: large;
+}
+.hoverMe {
+    position: relative;
+}
+
 canvas#pieChart{
     padding: 10px;
     margin: 20px;

@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - GRAFICO A TORTA -- COUNTDOWN
     
+    let percentToShow = -1;
+
     const canvas = document.getElementById("pieChart");
     if (canvas) {
         const ctx = canvas.getContext("2d");
@@ -162,7 +164,52 @@ document.addEventListener("DOMContentLoaded", () => {
         ${holidayText}
         `;
         //<p><b>Totale giorni:</b> ${totalDays}</p>
+
+        percentToShow = ((daysPassed / totalDays)*100).toFixed(1);
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - tooltip che segue il cursore
+
+    /* 
+        I DID NOT CREATE THIS CODE!!!!! 
+        you can find the original tutorial where i copied this part of the code here:
+        https://codingartistweb.com/2022/01/div-follow-mouse-cursor-html-css-javascript/
+    */
+   
+    let myDiv = document.getElementById("percentRemaining");
+    //Detect touch device
+    function isTouchDevice() {
+    try {
+        //We try to create TouchEvent. It would fail for desktops and throw error
+        document.createEvent("TouchEvent");
+        return true;
+    } catch (e) {
+        return false;
+    }
+    }
+    const move = (e) => {
+    //Try, catch to avoid any errors for touch screens (Error thrown when user doesn't move his finger)
+    try {
+        //PageX and PageY return the position of client's cursor from top left of screen
+        var x = !isTouchDevice() ? e.pageX : e.touches[0].pageX;
+        var y = !isTouchDevice() ? e.pageY : e.touches[0].pageY;
+    } catch (e) {}
+    //set left and top of div based on mouse position
+    myDiv.style.left = x - 25 + "px";
+    myDiv.style.top = y - 50 + "px";
+    };
+    //For mouse
+    document.addEventListener("mousemove", (e) => {
+    move(e);
+    });
+    //For touch
+    document.addEventListener("touchmove", (e) => {
+    move(e);
+    });
+
+    // from this point on, resumes my actual work :)
+
+    document.getElementById("percentRemaining").innerHTML = `${percentToShow}%`;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - verifiche
 
