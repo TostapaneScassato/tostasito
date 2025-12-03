@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Auguri!</title>
+   <link rel="stylesheet" href="./styles/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+   <style>
+      body {
+         opacity: 0;
+      }
+
+      body>div {
+         background-color: pink;
+         text-align: center;
+         font-size: x-large;
+         color: darkorchid;
+
+         padding: 20px 10px;
+         border-radius: 10px;
+
+         max-width: 90%;
+         margin: 0 auto;
+
+         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+         box-shadow: thistle 7px 12px 30px;
+      }
+      div>b {
+         font-size: xxx-large;
+         margin: 10px;
+      }
+      div>b, div>i {
+         text-shadow: 3px 1px gray;
+      }
+
+      #cat {
+         border-radius: 100%;
+         box-shadow: none;
+      }
+
+   </style>
+</head>
+<body>
+   <header class="flex-container">
+
+      <div class="left">
+         <button class="headerButton" id="homeButton">
+            <i class="material-icons" id="homeIcon">home</i>
+            <p class="headerParagraph">Home</p>
+         </button>
+      </div>
+      
+      <div class="center">
+         <h1 class="title">AUGURI AURI!</h1>
+      </div>
+      
+      <div class="right">
+         <button class="headerButton" id="blank">
+            <p class="headerParagraph" id="blank">Settings</p>
+            <i class="material-icons" id="blank">settings</i>
+         </button>
+      </div>
+
+   </header>
+
+   <div>
+      Hai detto che non volevi regali, ma che un biglietto sarebbe bastato.<br><br>
+      Secondo me i biglietti sono superati, quindi ho fatto questo, spero che ti piaccia.<br><br>
+      Detto questo,<br>
+      <i class="material-icons" id="schoolIcon" style="color: darkorchid;">cake</i>
+      <b>BUON COMPLEANNO</b>
+      <i class="material-icons" id="schoolIcon" style="color: darkorchid;">cake</i>
+   </div>
+
+   <div id="cat" style="position: absolute;">=^.^=</div>
+
+   <script src="./scripts/script.js"></script>
+   <script>
+      document.addEventListener("DOMContentLoaded", () => {
+         const correctCode = 2317;
+         const userCode = prompt("che prima di accedere, devi inserire la password segretissima");
+
+         if (userCode != correctCode) window.location.href = "/home";
+         else document.body.style.opacity = 1;
+
+         const cat = document.getElementById("cat");
+
+         let targetX = 0;
+         let targetY = 0;
+
+         let catX = 0;
+         let catY = 0;
+
+         // velocità del gatto (px al secondo)
+         const speed = 400;
+
+         document.addEventListener("mousemove", (e) => {
+         targetX = e.pageX;
+         targetY = e.pageY;
+         });
+
+         // animazione continua
+         function loop(timestamp) {
+         requestAnimationFrame(loop);
+
+         // distanza tra gatto e bersaglio
+         const dx = targetX - catX;
+         const dy = targetY - catY;
+         const distance = Math.hypot(dx, dy);
+
+         if (distance < 1) return; // se è molto vicino, niente da fare
+
+         // direzione normalizzata
+         const dirX = dx / distance;
+         const dirY = dy / distance;
+
+         // deltaTime per velocità costante
+         const now = performance.now();
+         let delta = (loop.lastTime) ? (now - loop.lastTime) / 1000 : 0;
+         loop.lastTime = now;
+
+         // spostamento in base alla velocità
+         const move = speed * delta;
+
+         // se il movimento supera la distanza → arriva esattamente sul punto
+         if (move >= distance) {
+            catX = targetX;
+            catY = targetY;
+         } else {
+            catX += dirX * move;
+            catY += dirY * move;
+         }
+
+         cat.style.left = catX + "px";
+         cat.style.top = catY + "px";
+         }
+
+         requestAnimationFrame(loop);
+
+      })
+   </script>
+</body>
+</html>
