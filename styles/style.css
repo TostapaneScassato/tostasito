@@ -132,11 +132,11 @@ tr:nth-child(odd){
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-flow: wrap;
 }
 .mainBody#schoolManager{
-    flex-direction: column;
     justify-self: center;
-    width: max-content;
+    text-align: center;
 }
 
 .mainButton{
