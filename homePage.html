@@ -41,5 +41,15 @@
     </footer>
 
     <script src="./scripts/script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+            if(width < 1100) {
+                alert("WARNING,\nyou are using a non-optimal device width. If you decide to continue anyway, beware that some functionalities may appear broken, and the overall User Experience might be disrupted.\nTo solve this problem, we reccomend you use a wider monitor (at least 1100px).")
+            }
+        })
+    </script>
 </body>
 </html>
