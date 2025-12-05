@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const holidays = [
             ["lla Festa di Tutti i Santi", "2025-11-01"],
             ["l Patrono di Scandiano", "2025-11-25"],
-            ["l'Immacolata Concezione", "2025-12-08"],
+            ["ll'Immacolata Concezione", "2025-12-08"],
             ["lle VACANZE DI NATALE", "2025-12-24"],
             ["lla fine delle VACANZE DI NATALE :(", "2026-01-06"],
             ["lle VACANZE DI PASQUA", "2026-04-02"],

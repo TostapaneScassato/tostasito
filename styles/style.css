@@ -123,6 +123,7 @@ tr:nth-child(odd){
 }
 #blank {
     opacity: 0;
+    cursor: default;
 }
 
 .mainBody{
@@ -284,6 +285,7 @@ select.sheduleSelect {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;
 }
 
 .popup{
