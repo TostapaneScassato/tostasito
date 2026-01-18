@@ -43,6 +43,7 @@ header{
     font-size: 32px;
     height: 125px;
     color: var(--text);
+    text-align: center;
 }
 
 button {
@@ -57,6 +58,19 @@ h1.inner{
 h1.title{
     color: var(--text);
     font-family:Arial, Helvetica, sans-serif;
+}
+h1.title#doubleLine {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+h2.subtitle {
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 table{
@@ -137,6 +151,26 @@ tr:nth-child(odd){
     text-align: center;
 }
 
+.minorButton {
+    text-align: center;
+    justify-content: space-between;
+    color: var(--text-strong);
+    background-color: var(--card-bg);
+    font-weight: bold;
+    font-size: 30px;
+    margin: 18px;
+    padding: 25px;
+    border-radius: 10px;
+    min-width: 20%;
+    max-width: 40%;
+    border-color: var(--text-strong);
+    transition: background-color, color 100ms;
+    box-shadow: 2px 2px 2px 0px rgba(49, 49, 49, 0.6);
+}
+.minorButton>p {
+    margin: 0;
+}
+
 .mainButton{
     display: flex;
     flex-direction: column;
@@ -155,11 +189,11 @@ tr:nth-child(odd){
     transition: background-color, color 100ms;
     box-shadow: 2px 2px 2px 0px rgba(49, 49, 49, 0.6);
 }
-.mainButton:hover, .innerButton:hover{
+.mainButton:hover, .minorButton:hover, .innerButton:hover{
     background-color: var(--button-hover);
     color: var(--text-strong-hover);
 }
-.mainButton:active, .innerButton:active{
+.mainButton:active, .minorButton:active, .innerButton:active{
     box-shadow: none;
 }
 

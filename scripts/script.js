@@ -44,11 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("light");
     }
 
+    // pagina easter eggs
+    const ee_error403 = document.getElementById("ee_error403");
+    const ee_error404 = document.getElementById("ee_error404");
+    const ee_error50x = document.getElementById("ee_error50x");
+
+    if (ee_error403) ee_error403.addEventListener("click", () => {
+        window.location.href="/errors/403";
+    })
+    if (ee_error404) ee_error404.addEventListener("click", () => {
+        window.location.href="/errors/404";
+    })
+    if (ee_error50x) ee_error50x.addEventListener("click", () => {
+        window.location.href="/errors/50x";
+    })
+
     updateThemeIcon();
 
     document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
-
-
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - GRAFICO A TORTA -- COUNTDOWN
     
