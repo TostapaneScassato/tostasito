@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const ee_error403 = document.getElementById("ee_error403");
     const ee_error404 = document.getElementById("ee_error404");
     const ee_error50x = document.getElementById("ee_error50x");
+    const ee_maintenance = document.getElementById("ee_maintenance");
+    const ee_workInProgress = document.getElementById("ee_workInProgress");
 
     if (ee_error403) ee_error403.addEventListener("click", () => {
         window.location.href="/errors/403";
@@ -57,6 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (ee_error50x) ee_error50x.addEventListener("click", () => {
         window.location.href="/errors/50x";
+    })
+    if (ee_maintenance) ee_maintenance.addEventListener("click", () => {
+        window.location.href="/maintenance";
+    })
+    if (ee_workInProgress) ee_workInProgress.addEventListener("click", () => {
+        window.location.href="/workInProgress";
     })
 
     updateThemeIcon();
