@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsButton = document.getElementById("settingsButton");
     const schoolButton = document.getElementById("schoolButton");
     const loginButton = document.getElementById("loginButton");
+    const hiddenPagesButton = document.getElementById("hiddenPagesButton");
     
     //dove portano i movitori
     if (homeButton) homeButton.addEventListener("click", () => {
@@ -38,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (loginButton) loginButton.addEventListener("click", () => {
         window.location.href="/workInProgress";
+    })
+    if (hiddenPagesButton) hiddenPagesButton.addEventListener("click", () => {
+        window.location.href="/hiddenPages";
     })
 
     if (localStorage.getItem("theme") === "light") {
