@@ -44,26 +44,26 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("light");
     }
 
-    // pagina easter eggs
-    const ee_error403 = document.getElementById("ee_error403");
-    const ee_error404 = document.getElementById("ee_error404");
-    const ee_error50x = document.getElementById("ee_error50x");
-    const ee_maintenance = document.getElementById("ee_maintenance");
-    const ee_workInProgress = document.getElementById("ee_workInProgress");
+    // pagine nascoste
+    const hp_error403 = document.getElementById("hp_error403");
+    const hp_error404 = document.getElementById("hp_error404");
+    const hp_error50x = document.getElementById("hp_error50x");
+    const hp_maintenance = document.getElementById("hp_maintenance");
+    const hp_workInProgress = document.getElementById("hp_workInProgress");
 
-    if (ee_error403) ee_error403.addEventListener("click", () => {
+    if (hp_error403) hp_error403.addEventListener("click", () => {
         window.location.href="/errors/403";
     })
-    if (ee_error404) ee_error404.addEventListener("click", () => {
+    if (hp_error404) hp_error404.addEventListener("click", () => {
         window.location.href="/errors/404";
     })
-    if (ee_error50x) ee_error50x.addEventListener("click", () => {
+    if (hp_error50x) hp_error50x.addEventListener("click", () => {
         window.location.href="/errors/50x";
     })
-    if (ee_maintenance) ee_maintenance.addEventListener("click", () => {
+    if (hp_maintenance) hp_maintenance.addEventListener("click", () => {
         window.location.href="/maintenance";
     })
-    if (ee_workInProgress) ee_workInProgress.addEventListener("click", () => {
+    if (hp_workInProgress) hp_workInProgress.addEventListener("click", () => {
         window.location.href="/workInProgress";
     })
 
