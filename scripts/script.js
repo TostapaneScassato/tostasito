@@ -54,6 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const hp_error50x = document.getElementById("hp_error50x");
     const hp_maintenance = document.getElementById("hp_maintenance");
     const hp_workInProgress = document.getElementById("hp_workInProgress");
+    const hp_stylecss = document.getElementById("hp_stylecss");
+    const hp_scriptjs = document.getElementById("hp_scriptjs");
+    const hp_robotstxt = document.getElementById("hp_robotstxt");
 
     if (hp_error403) hp_error403.addEventListener("click", () => {
         window.location.href="/errors/403";
@@ -69,6 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (hp_workInProgress) hp_workInProgress.addEventListener("click", () => {
         window.location.href="/workInProgress";
+    })
+    if (hp_stylecss) hp_stylecss.addEventListener("click", () => {
+        window.location.href="/styles/style.css";
+    })
+    if (hp_scriptjs) hp_scriptjs.addEventListener("click", () => {
+        window.location.href="/scripts/script.js";
+    })
+    if (hp_robotstxt) hp_robotstxt.addEventListener("click", () => {
+        window.location.href="/robots.txt";
     })
 
     updateThemeIcon();
