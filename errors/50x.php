@@ -1,5 +1,6 @@
 <?php
-$code = $_GET['code'] ?? 500;
+$code = $_GET['code'] ?? '500';
+$text = $_GET['text'] ?? 'Internal Server Error (n/a)';
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@ $code = $_GET['code'] ?? 500;
 <body>
     <mark>
         <i class="material-icons" id="title">warning</i>
-        <h1 class="title">ERRORE <?php echo htmlspecialchars($code) ?></h1>
+        <h1 class="title">ERRORE <?php echo htmlspecialchars($code) ?> - <?php echo htmlspecialchars($text) ?></h1>
         <i class="material-icons" id="title">warning</i>
     </mark>
     <h2 id="top">Non sei tu, sono io!</h2>

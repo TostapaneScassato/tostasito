@@ -32,20 +32,19 @@
 
    <div class="mainBody">
       <form class="loginForm">
-         <input type="text" name="user_email" placeholder="Username or E-Mail" class="loginInput" required>
+         <input type="text" name="user_email" placeholder="Username" class="loginInput" required>
          <input type="password" name="user_password" placeholder="Password" class="loginInput" required>
          <div class="loginConfirm">
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="loginInput" id="forgotPassword">Password dimenticata?</a>
-            <button class="innerButton">
+            <button type="submit" class="innerButton">
                <i class="material-icons" id="loginIcon">login</i>
                <p class="innerParagraph" >Effettua l'accesso</p>
             </button>
          </div>
-         <hr>
       </form>
    </div>
 
+   <script src="./scripts/auth.js"></script>
    <script src="./scripts/script.js"></script>
-   <script src="./script/auth.js"></script>
 </body>
 </html>

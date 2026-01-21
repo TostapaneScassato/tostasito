@@ -1,3 +1,25 @@
+async function loadSettings() {
+    const res = await fetch("/api/settings");
+    if (!res.ok) return null;
+    return await res.json();
+}
+
+async function saveSettings(obj) {
+    await fetch("/api/settings", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(obj)
+    });
+}
+
+let isLoggedIn = false;
+
+fetch("/api/me")
+    .then(r => r.json())
+    .then(data => {
+        isLoggedIn = data.logged_in;
+    });
+
 document.addEventListener("DOMContentLoaded", () => {
     
     function updateThemeIcon(){
@@ -15,11 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleTheme(){
         document.body.classList.toggle("light");
-        localStorage.setItem("theme",
-            document.body.classList.contains("light")? "light" : "dark"
-        );
+        const tema = document.body.classList.contains("light") ? "light" : "dark";
+        if (typeof saveSettings === "function") saveSettings({ tema });
+        else localStorage.setItem("tema", tema);
         updateThemeIcon();
     }
+
+    if (typeof loadSettings === "function") {
+        loadSettings().then(settings => {
+            if (settings?.tema === "light") document.body.classList.add("light");
+        }).catch(() => {
+            if (localStorage.getItem("tema") === "light") document.body.classList.add("light");
+        });
+    } else if (localStorage.getItem("tema") === "light") {
+        document.body.classList.add("light");
+    }
+    updateThemeIcon();
+
+    document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+
     // dichiarazione dei pulsanti
     const homeButton = document.getElementById("homeButton");
     const settingsButton = document.getElementById("settingsButton");
@@ -38,15 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/school";
     })
     if (loginButton) loginButton.addEventListener("click", () => {
-        window.location.href="/workInProgress";
+        window.location.href="/dashboard";
     })
     if (hiddenPagesButton) hiddenPagesButton.addEventListener("click", () => {
         window.location.href="/hiddenPages";
     })
-
-    if (localStorage.getItem("theme") === "light") {
-        document.body.classList.add("light");
-    }
 
     // pagine nascoste
     const hp_error403 = document.getElementById("hp_error403");
@@ -65,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/errors/404";
     })
     if (hp_error50x) hp_error50x.addEventListener("click", () => {
-        window.location.href="/errors/50x";
+        window.location.href="/errors/50x?code=200&text=Oll+Korrect";
     })
     if (hp_maintenance) hp_maintenance.addEventListener("click", () => {
         window.location.href="/maintenance";
@@ -82,10 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (hp_robotstxt) hp_robotstxt.addEventListener("click", () => {
         window.location.href="/robots.txt";
     })
-
-    updateThemeIcon();
-
-    document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - GRAFICO A TORTA -- COUNTDOWN
     
@@ -258,14 +286,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const lista =       document.getElementById("testList");
     const form =        document.getElementById("add-test-form");
 
-    let verifiche = JSON.parse(localStorage.getItem("verifiche")) || [];
+    let verifiche = [];
     
     function aggiornaLista() {
         lista.innerHTML = ``;
 
         verifiche.forEach((v, index) => {
             const tipo = v.interrogazione ? "un'interrogazione" : "una verifica";
-
             const div = document.createElement("div");
             div.className = "testItem";
 
@@ -279,19 +306,32 @@ document.addEventListener("DOMContentLoaded", () => {
             icon.className = "material-icons";
             icon.id = "deleteTest";
             icon.textContent = "delete";
-
             deleteBtn.appendChild(icon);
 
             deleteBtn.addEventListener("click", () => {
                 verifiche.splice(index, 1);
-                localStorage.setItem("verifiche", JSON.stringify(verifiche));
+                if (typeof saveSettings === "function") saveSettings({ verifiche });
+                else localStorage.setItem("verifiche", JSON.stringify(verifiche));
                 aggiornaLista();
-            })
+            });
 
             div.appendChild(deleteBtn);
             div.appendChild(info);
             lista.appendChild(div);
         });
+    }
+
+    if (typeof loadSettings === "function") {
+        loadSettings().then(settings => {
+            verifiche = JSON.parse(settings?.verifiche || "[]")
+            aggiornaLista();
+        }).catch(() => {
+            verifiche = JSON.parse(localStorage.getItem("verifiche") || "[]");
+            aggiornaLista();
+        });
+    } else {
+        verifiche = JSON.parse(localStorage.getItem("verifiche") || "[]");
+        aggiornaLista();
     }
 
     function apriPopup() {
@@ -323,7 +363,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         verifiche.push({data, materia, interrogazione});
-        localStorage.setItem("verifiche", JSON.stringify(verifiche));
+        if (typeof saveSettings === "function") saveSettings({ verifiche: JSON.stringify(verifiche) });
+        else localStorage.setItem("verifiche", JSON.stringify(verifiche));
 
         chiudiPopup();
 
@@ -333,33 +374,50 @@ document.addEventListener("DOMContentLoaded", () => {
     
         aggiornaLista();
     });
-    
-    aggiornaLista();
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - TABELLA ORARIO
 
     const scheduleOverlay   = document.getElementById("schedule-overlay");
     const scheduleBtn       = document.getElementById("newScheduleButton");
     const scheduleFormDiv   = document.getElementById("formRows");
-    const mainTable         = document.getElementById("tabellaOrarioMain");
-
-    const giorni    = ["lun", "mar", "mer", "gio", "ven", "sab"];
-    const ore       = [1, 2, 3, 4, 5, 6];
-
+    
+    let orario = {};
+    function caricaOrario() {
+        const mainTable = document.getElementById("tabellaOrarioMain");
+        if (!mainTable) return;
+        
+        for (let id in orario) {
+            const [row, column] = id.match(/\d+/g).map(Number);
+            const tableRow = mainTable.rows[row];
+            if (tableRow && tableRow.cells[column])
+                tableRow.cells[column].textContent = orario[id] || "";
+        }
+        
+        document.querySelectorAll(".scheduleSelect").forEach(select => {
+            if (orario[select.id] !== undefined) select.value = orario[select.id];
+        });
+    }
+    
     function generaForm() {
+        if (!scheduleFormDiv) return;
         scheduleFormDiv.innerHTML = "";
 
+        const giorni    = ["lun", "mar", "mer", "gio", "ven", "sab"];
+        const ore       = [1, 2, 3, 4, 5, 6];
+        
         ore.forEach((r) => {
             const rowDiv = document.createElement("div");
             rowDiv.className = "row";
             rowDiv.style.display = "flex";
             rowDiv.style.gap     = "5px"
             rowDiv.style.height  = "40px";
+
             giorni.forEach((g, c) => {
                 const select = document.createElement("select");
                 select.classList.add("scheduleSelect");
                 select.id = `subject-${r}.${c+1}`;
                 select.style.flex = "1";
+
                 ["", "Italiano", "Storia", "Inglese", "Matematica", "C. Mate", "Informatica", "Telecom", "TPSI", "Sistemi", "Motoria", "Religione"].forEach(m => {
                     const opt = document.createElement("option");
                     opt.value = m;
@@ -367,34 +425,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     opt.style = "text-align:center";
                     select.appendChild(opt);
                 });
+
                 rowDiv.appendChild(select);
+                select.addEventListener("change", () => {
+                    orario[select.id] = select.value;
+                    if (typeof saveSettings === "function") saveSettings({ orario });
+                    else localStorage.setItem("orario", JSON.stringify(orario));
+                });
             });
+
             scheduleFormDiv.appendChild(rowDiv);
         });
+    }
+    
+    if (typeof loadSettings === "function") {
+        loadSettings().then(settings => {
+            orario = JSON.parse(settings?.orario || "{}");
+            caricaOrario();
+        }).catch(() => {
+            orario = JSON.parse(localStorage.getItem("orario") || "{}");
+            caricaOrario();
+        });
+    } else {
+        orario = JSON.parse(localStorage.getItem("orario") || "{}");
+        caricaOrario();
     }
 
     function salvaOrario() {
         const scheduleSelects = scheduleFormDiv.querySelectorAll(".scheduleSelect");
-        const orario = {};
+        orario = {};
         scheduleSelects.forEach(sel => orario[sel.id] = sel.value);
-        localStorage.setItem("orario", JSON.stringify(orario));
+        
+        if (typeof saveSettings === "function") saveSettings({ orario: JSON.stringify(orario) });
+        else localStorage.setItem("orario", JSON.stringify(orario));
         caricaOrario();
-    }
-
-    function caricaOrario() {
-        const orario = JSON.parse(localStorage.getItem("orario")) || {};
-
-        for (let id in orario) {
-            const [riga, colonna] = id.match(/\d+/g).map(Number);
-            const tableRow = mainTable.rows[riga];
-            if (tableRow && tableRow.cells[colonna]) {
-                tableRow.cells[colonna].textContent = orario[id] || "";
-            }
-        }
-
-        scheduleFormDiv.querySelectorAll(".scheduleSelect").forEach(select => {
-            if (orario[select.id] !== undefined) select.value = orario[select.id];
-        });
     }
 
     scheduleBtn.addEventListener("click", () => {
@@ -414,7 +478,4 @@ document.addEventListener("DOMContentLoaded", () => {
         scheduleOverlay.classList.add("hidden");
         caricaOrario();
     });
-
-    generaForm();
-    caricaOrario();
 })
