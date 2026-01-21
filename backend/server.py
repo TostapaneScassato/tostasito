@@ -19,7 +19,9 @@ def get_db():
 
 @app.post("/api/register")
 def register():
-   data = request.json
+   data = request.get_json(silent=True)
+   if not data:
+      return jsonify(error="JSON invalido"), 400
 
    username = data.get("username", "").strip()
    password = data.get("password", "")
@@ -50,7 +52,9 @@ def register():
 
 @app.post("/api/login")
 def login():
-   data = request.json
+   data = request.get_json(silent=True)
+   if not data:
+      return jsonify(error="JSON invalido"), 400
 
    username = data.get("username", "")
    password = data.get("password", "")

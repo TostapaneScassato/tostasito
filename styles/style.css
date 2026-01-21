@@ -150,6 +150,16 @@ tr:nth-child(odd){
     justify-self: center;
     text-align: center;
 }
+.mainBody#login {
+    flex-direction: column;
+    max-width: 70%;
+    margin: 0 auto;
+}
+.mainBody#login>hr {
+    width: 100%;
+    border: 5px double;
+    margin: 20px 0;
+}
 
 .flexRowBreak {
     flex-basis: 100%;
@@ -409,7 +419,7 @@ select.sheduleSelect {
     color: var(--red);
 }
 
-.loginForm {
+.loginForm, .registerForm {
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -419,7 +429,8 @@ select.sheduleSelect {
     justify-items: center;
     align-items: center;
 }
-.loginInput {
+
+.loginInput, .registerInput {
     margin-bottom: 15px;
     max-width: 75%;
     min-width: 40%;
@@ -438,8 +449,8 @@ select.sheduleSelect {
     margin-bottom: 10px;
     padding: 5px;
 }
-.loginConfirm {
-    margin-top: 5px;
+.loginConfirm, .registerConfirm {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
