@@ -33,6 +33,7 @@ body{
     color: var(--text);
     min-height: 98vh;
     min-height: 98dvh;
+    overflow-x: hidden;
 }
 
 header{
@@ -249,9 +250,6 @@ canvas#pieChart:hover + .tooltipInfo {
     border-radius: 10%;
     padding: 4px 8px;
     font-size: large;
-}
-.hoverMe {
-    position: relative;
 }
 
 canvas#pieChart{
