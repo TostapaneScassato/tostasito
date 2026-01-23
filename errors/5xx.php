@@ -81,7 +81,7 @@ $text = $_GET['text'] ?? 'Internal Server Error (n/a)';
         <i class="material-icons" id="title">warning</i>
     </mark>
     <h2 id="top">Non sei tu, sono io!</h2>
-    <h2 id="bottom">C'è stato un erroe a livello del server, riprova più tardi.</h2>
+    <h2 id="bottom">C'è stato un errore a livello del server, riprova più tardi.</h2>
     <button onclick="window.location.href='/home'">
         <i class="material-icons">home</i>
         <p>Torna alla home</p>
