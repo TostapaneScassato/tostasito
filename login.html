@@ -61,5 +61,15 @@
    </footer>
    <script src="./scripts/auth.js"></script>
    <script src="./scripts/script.js"></script>
+   <script>
+      fetch("/api/me").then(r => r.json()).then(data => {
+         var logged = data.logged_in;
+         
+         if (logged) {
+            alert("You are already logged in!");
+            window.history.back();
+         }
+      });
+   </script>
 </body>
 </html>

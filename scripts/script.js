@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsButton = document.getElementById("settingsButton");
     const schoolButton = document.getElementById("schoolButton");
     const loginButton = document.getElementById("loginButton");
+    const dashboardButton = document.getElementById("dashboardButton");
     const hiddenPagesButton = document.getElementById("hiddenPagesButton");
     
     //dove portano i movitori
@@ -74,7 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/school";
     })
     if (loginButton) loginButton.addEventListener("click", () => {
-        window.location.href="/dashboard";
+        window.location.href="/login";
+    })
+    if (dashboardButton) dashboardButton.addEventListener("click", () => {
+        window.location.href ="/dashboard";
     })
     if (hiddenPagesButton) hiddenPagesButton.addEventListener("click", () => {
         window.location.href="/hiddenPages";
