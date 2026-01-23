@@ -81,23 +81,31 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // pagine nascoste
+    const hp_error400 = document.getElementById("hp_error400");
     const hp_error403 = document.getElementById("hp_error403");
     const hp_error404 = document.getElementById("hp_error404");
-    const hp_error50x = document.getElementById("hp_error50x");
+    const hp_error405 = document.getElementById("hp_error405");
+    const hp_error5xx = document.getElementById("hp_error5xx");
     const hp_maintenance = document.getElementById("hp_maintenance");
     const hp_workInProgress = document.getElementById("hp_workInProgress");
     const hp_stylecss = document.getElementById("hp_stylecss");
     const hp_scriptjs = document.getElementById("hp_scriptjs");
     const hp_robotstxt = document.getElementById("hp_robotstxt");
 
+    if (hp_error400) hp_error400.addEventListener("click", () => {
+        window.location.href="/errors/400";
+    })
     if (hp_error403) hp_error403.addEventListener("click", () => {
         window.location.href="/errors/403";
     })
     if (hp_error404) hp_error404.addEventListener("click", () => {
         window.location.href="/errors/404";
     })
+    if (hp_error405) hp_error405.addEventListener("click", () => {
+        window.location.href="/errors/405";
+    })
     if (hp_error50x) hp_error50x.addEventListener("click", () => {
-        window.location.href="/errors/50x?code=200&text=Oll+Korrect";
+        window.location.href="/errors/5xx?code=200&text=Oll+Korrect";
     })
     if (hp_maintenance) hp_maintenance.addEventListener("click", () => {
         window.location.href="/maintenance";
