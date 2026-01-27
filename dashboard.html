@@ -7,6 +7,7 @@
    <link rel="icon" href="./assets/img/favicon.ico">
    <link rel="stylesheet" href="./styles/style.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
 </head>
 <body>
    <header class="flex-container">
@@ -31,6 +32,21 @@
    </header>
 
    <div class="mainBody" id="dashboard">
+      <div class="accountInfo">
+         <h2 class="subtitle">Nome account: <span id="accountName">Lorem ipsum</span></h2>
+         <h2 class="subtitle">Account creato il <span id="accountCreatedAt">dolor sit amet</span></h2>
+         <span class="subtitle" id="vipMessage"></span>
+         <div class="modifyAccount">
+            <button class="innerButton" id="modifyAccountButton">
+               <i class="material-symbols-outlined" id="modifyAccountIcon">person_edit</i>
+               <p>Modifica i dati dell'account</p>
+            </button>
+            <button class="innerButton" id="logoutButton">
+               <i class="material-symbols-outlined" id="modifyAccountIcon">logout</i>
+               <p>Logout</p>
+            </button>
+         </div>
+      </div>
    </div>
    <footer>
       <span>Copyright © 2025-2026 Stefano Carletti -- MIT license</span>
@@ -45,6 +61,26 @@
             console.log("Non loggato");
             alert("You must be logged in to access this area!");
             window.location.href = "/login";
+         }
+         
+         var username = data.username;
+         var createdAt = data.created_at;
+         var vip = data.vip;
+
+         const [createdAtDate, createdAtTime] = createdAt.split("T");
+         const createdAtTimeFormatted = createdAtTime.split(".")[0];
+
+         const accountName = document.getElementById("accountName");
+         if (accountName) accountName.textContent = username;
+
+         const accountCreatedAt = document.getElementById("accountCreatedAt");
+         if (accountCreatedAt) accountCreatedAt.textContent = `${createdAtDate} alle ${createdAtTimeFormatted} UTC`;
+
+         const vipMessage = document.getElementById("vipMessage");
+
+         if (vipMessage) {
+            vipMessage.textContent = "Questo account gode di privilegi VIP";
+            vipMessage.style.color = 'gold';
          }
       });
    </script>

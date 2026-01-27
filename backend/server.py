@@ -134,11 +134,28 @@ def update_settings():
 
    return jsonify(success=True)
 
+# database structure: 'id', 'username', 'password_hash', 'created_at', 'vip'
+# database types:  INTEGER,  TEXT,       TEXT,            TEXT,         BOOL
+
 @app.get("/api/me")
 def me():
+   conn = get_db()
+   cur = conn.cursor()
+
    if "user_id" not in session:
       return jsonify(logged_in=False)
-   return jsonify(logged_in=True)
+
+   user_id = session["user_id"]
+
+   cur.execute("SELECT username, created_at, vip FROM users WHERE id = ?", (user_id, ))
+   row = cur.fetchone()
+
+   if not row:
+      return jsonify(logged_in=False)
+   return jsonify(logged_in=True,
+      username=row[0],
+      created_at=row[1],
+      vip=row[2])
 
 
 app.run(host="0.0.0.0", port=5000)

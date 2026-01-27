@@ -103,3 +103,11 @@ if (registerForm) {
       }
    });
 }
+
+const logoutButton = document.getElementById("logoutButton");
+
+if (logoutButton) logoutButton.addEventListener("click", () => {
+   logout();
+   
+   setTimeout(window.location.href = "/login", 200);
+})
