@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             deleteBtn.addEventListener("click", () => {
                 verifiche.splice(index, 1);
-                if (typeof saveSettings === "function") saveSettings({ verifiche });
+                if (typeof saveSettings === "function") saveSettings({ verifiche: JSON.stringify(verifiche) });
                 else localStorage.setItem("verifiche", JSON.stringify(verifiche));
                 aggiornaLista();
             });
@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 rowDiv.appendChild(select);
                 select.addEventListener("change", () => {
                     orario[select.id] = select.value;
-                    if (typeof saveSettings === "function") saveSettings({ orario });
+                    if (typeof saveSettings === "function") saveSettings({ orario: JSON.stringify(orario) });
                     else localStorage.setItem("orario", JSON.stringify(orario));
                 });
             });

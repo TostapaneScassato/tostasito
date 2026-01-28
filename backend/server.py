@@ -123,11 +123,16 @@ def update_settings():
 
    for key in allowed_keys:
       if key in data:
+         value = data[key]
+
+         if not isinstance(value, str):
+            value = json.dumps(value)
+
          cur.execute("""
             INSERT INTO user_settings (user_id, key, value)
             VALUES (?, ?, ?)
             ON CONFLICT(user_id, key) DO UPDATE SET value=excluded.value
-         """, (session["user_id"], key, data[key]))
+         """, (session["user_id"], key, value))
 
    conn.commit()
    conn.close()
