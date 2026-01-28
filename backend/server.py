@@ -1,5 +1,5 @@
 import sqlite3, json
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, redirect
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 from pathlib import Path
@@ -102,7 +102,12 @@ def get_settigs():
    defaults = {
       "tema": "dark",
       "verifiche": "[]",
-      "orario": '{"subject-1.1":"","subject-1.2":"","subject-1.3":"","subject-1.4":"","subject-1.5":"","subject-1.6":"","subject-2.1":"","subject-2.2":"","subject-2.3":"","subject-2.4":"","subject-2.5":"","subject-2.6":"","subject-3.1":"","subject-3.2":"","subject-3.3":"","subject-3.4":"","subject-3.5":"","subject-3.6":"","subject-4.1":"","subject-4.2":"","subject-4.3":"","subject-4.4":"","subject-4.5":"","subject-4.6":"","subject-5.1":"","subject-5.2":"","subject-5.3":"","subject-5.4":"","subject-5.5":"","subject-5.6":"","subject-6.1":"","subject-6.2":"","subject-6.3":"","subject-6.4":"","subject-6.5":"","subject-6.6":""}'
+      "orario": '{"subject-1.1":"","subject-1.2":"","subject-1.3":"","subject-1.4":"","subject-1.5":"","subject-1.6":"",'
+                 '"subject-2.1":"","subject-2.2":"","subject-2.3":"","subject-2.4":"","subject-2.5":"","subject-2.6":"",'
+                 '"subject-3.1":"","subject-3.2":"","subject-3.3":"","subject-3.4":"","subject-3.5":"","subject-3.6":"",'
+                 '"subject-4.1":"","subject-4.2":"","subject-4.3":"","subject-4.4":"","subject-4.5":"","subject-4.6":"",'
+                 '"subject-5.1":"","subject-5.2":"","subject-5.3":"","subject-5.4":"","subject-5.5":"","subject-5.6":"",'
+                 '"subject-6.1":"","subject-6.2":"","subject-6.3":"","subject-6.4":"","subject-6.5":"","subject-6.6":""}'
    }
    for k, v in defaults.items():
       if k not in settings:
@@ -141,7 +146,6 @@ def update_settings():
 
 # database structure: 'id', 'username', 'password_hash', 'created_at', 'vip'
 # database types:  INTEGER,  TEXT,       TEXT,            TEXT,         BOOL
-
 @app.get("/api/me")
 def me():
    conn = get_db()
@@ -162,5 +166,21 @@ def me():
       created_at=row[1],
       vip=row[2])
 
+# error handlers
+@app.errorhandler(400)
+def bad_request(e):
+   return redirect("/errors/400")
+
+@app.errorhandler(403)
+def forbidden(e):
+   return redirect("/errors/403")
+
+@app.errorhandler(404)
+def not_found(e):
+   return redirect("/errors/404")
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+   return redirect("/errors/405")
 
 app.run(host="0.0.0.0", port=5000)
