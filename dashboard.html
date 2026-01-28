@@ -70,11 +70,16 @@
          const [createdAtDate, createdAtTime] = createdAt.split("T");
          const createdAtTimeFormatted = createdAtTime.split(".")[0];
 
+         const dateParts = createdAtDate.split("-");
+         const dateYear = dateParts[0];
+         const dateMonth = dateParts[1];
+         const dateDay = dateParts[2];
+
          const accountName = document.getElementById("accountName");
          if (accountName) accountName.textContent = username;
 
          const accountCreatedAt = document.getElementById("accountCreatedAt");
-         if (accountCreatedAt) accountCreatedAt.textContent = `${createdAtDate} alle ${createdAtTimeFormatted} UTC`;
+         if (accountCreatedAt) accountCreatedAt.textContent = `${dateDay}-${dateMonth}-${dateYear} alle ${createdAtTimeFormatted} UTC`;
 
          const vipMessage = document.getElementById("vipMessage");
 
