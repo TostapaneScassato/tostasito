@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let verifiche = [];
     
     function aggiornaLista() {
-        lista.innerHTML = ``;
+        if (lista) lista.innerHTML = ``;
 
         verifiche.forEach((v, index) => {
             const tipo = v.interrogazione ? "un'interrogazione" : "una verifica";
@@ -357,10 +357,10 @@ document.addEventListener("DOMContentLoaded", () => {
         popupOverlay.classList.add("hidden");
     }
 
-    aggiungiBtn.addEventListener("click", apriPopup);
-    chiudiBtn.addEventListener("click", chiudiPopup);
+    if (aggiungiBtn) aggiungiBtn.addEventListener("click", apriPopup);
+    if (chiudiBtn) chiudiBtn.addEventListener("click", chiudiPopup);
 
-    form.addEventListener("submit", (e) => {
+    if (form) form.addEventListener("submit", (e) => {
         e.preventDefault();
         
         const data = document.getElementById("testDate").value;
@@ -477,13 +477,15 @@ document.addEventListener("DOMContentLoaded", () => {
         caricaOrario();
     }
 
-    scheduleBtn.addEventListener("click", () => {
+    if (scheduleBtn) scheduleBtn.addEventListener("click", () => {
         scheduleOverlay.classList.remove("hidden");
         generaForm();
         caricaOrario();
     });
 
-    document.getElementById("saveSchedule").addEventListener("click", e => {
+    const saveSchedule = document.getElementById("saveSchedule");
+
+    if (saveSchedule) saveSchedule.addEventListener("click", e => {
         e.preventDefault();
         salvaOrario();
         scheduleOverlay.classList.add("hidden");
