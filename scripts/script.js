@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         verifiche.forEach((v, index) => {
 
-            if (v.data < oggiFull) {
+            if (v.data < oggi) {
                 verifiche.splice(index, 1);
                 if (typeof saveSettings === "function") saveSettings({ verifiche: JSON.stringify(verifiche) });
                 else localStorage.setItem("verifiche", JSON.stringify(verifiche));

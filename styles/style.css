@@ -382,6 +382,7 @@ select.sheduleSelect {
     border-radius: 10px;
     max-height: 276px;
     overflow-y: auto;
+    scrollbar-width: none;
 }
 .testItem{
     margin: 6px;
