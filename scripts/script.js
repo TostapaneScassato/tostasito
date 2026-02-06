@@ -298,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const popupOverlay = document.getElementById("popup-overlay");
     const aggiungiBtn = document.getElementById("newTestButton");
+    const vecchieBtn =  document.getElementById("removeOldTestsButton");
     const chiudiBtn =   document.getElementById("cancelTest");
     const lista =       document.getElementById("testList");
     const form =        document.getElementById("add-test-form");
@@ -307,6 +308,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function ordinaVerifichePerData() {
         verifiche.sort((a, b) => a.data.localeCompare(b.data));
     }
+
+    if (vecchieBtn) vecchieBtn.addEventListener("click", () => {
+        const oggi = new Date().toISOString().split("T")[0];
+        
+        verifiche.forEach((v, index) => {
+
+            if (v.data < oggiFull) {
+                verifiche.splice(index, 1);
+                if (typeof saveSettings === "function") saveSettings({ verifiche: JSON.stringify(verifiche) });
+                else localStorage.setItem("verifiche", JSON.stringify(verifiche));
+                aggiornaLista();
+            }
+        })  
+    });
 
     function aggiornaLista() {
         if (lista) lista.innerHTML = ``;
