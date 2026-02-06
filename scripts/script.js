@@ -304,6 +304,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let verifiche = [];
     
+    function ordinaVerifichePerData() {
+        verifiche.sort((a, b) => a.data.localeCompare(b.data));
+    }
+
     function aggiornaLista() {
         if (lista) lista.innerHTML = ``;
 
@@ -340,9 +344,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof loadSettings === "function") {
         loadSettings().then(settings => {
             verifiche = JSON.parse(settings?.verifiche || "[]")
+            ordinaVerifichePerData();
             aggiornaLista();
         }).catch(() => {
             verifiche = JSON.parse(localStorage.getItem("verifiche") || "[]");
+            ordinaVerifichePerData();
             aggiornaLista();
         });
     } else {
@@ -379,6 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         verifiche.push({data, materia, interrogazione});
+        ordinaVerifichePerData();
         if (typeof saveSettings === "function") saveSettings({ verifiche: JSON.stringify(verifiche) });
         else localStorage.setItem("verifiche", JSON.stringify(verifiche));
 
