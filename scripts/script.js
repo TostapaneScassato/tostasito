@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hp_stylecss = document.getElementById("hp_stylecss");
     const hp_scriptjs = document.getElementById("hp_scriptjs");
     const hp_robotstxt = document.getElementById("hp_robotstxt");
+    const hp_license = document.getElementById("hp_license");
 
     if (hp_error400) hp_error400.addEventListener("click", () => {
         window.location.href="/errors/400";
@@ -129,6 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (hp_robotstxt) hp_robotstxt.addEventListener("click", () => {
         window.location.href="/robots.txt";
+    })
+    if (hp_license) hp_license.addEventListener("click", () => {
+        window.location.href="/license";
     })
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - GRAFICO A TORTA -- COUNTDOWN
