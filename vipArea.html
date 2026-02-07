@@ -8,6 +8,11 @@
    <link rel="stylesheet" href="./styles/style.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+   <style>
+      header, .mainBody {
+         opacity: 0;
+      }
+   </style>
 </head>
 <body>
    <header class="flex-container">
@@ -44,14 +49,6 @@
    <script src="./scripts/auth.js"></script>
    <script>
       fetch("/api/me").then(r => r.json()).then(data => {
-         var logged = data.logged_in;
-         
-         if (!logged) {
-            console.log("Non loggato");
-            alert("You must be logged in to access this area!");
-            window.location.href = "/login";
-         }
-
          var vip = data.vip;
 
          if (!vip) {
@@ -59,6 +56,12 @@
             alert("You must be a VIP to access this area!");
             window.location.href = "/home";
          }
+
+         const header = document.getElementsByTagName("header")[0];
+         const mainBody = document.getElementsByClassName("mainBody")[0];
+
+         if (header) header.style.opacity = '1';
+         if (mainBody) mainBody.style.opacity = '1';
       });
    </script>
 </body>

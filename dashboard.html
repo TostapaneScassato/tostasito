@@ -8,6 +8,11 @@
    <link rel="stylesheet" href="./styles/style.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+   <style>
+      header, .mainBody {
+         opacity: 0;
+      }
+   </style>
 </head>
 <body>
    <header class="flex-container">
@@ -62,7 +67,13 @@
             alert("You must be logged in to access this area!");
             window.location.href = "/login";
          }
-         
+
+         const header = document.getElementsByTagName("header")[0];
+         const mainBody = document.getElementsByClassName("mainBody")[0];
+
+         if (header) header.style.opacity = '1';
+         if (mainBody) mainBody.style.opacity = '1';
+
          var username = data.username;
          var createdAt = data.created_at;
          var vip = data.vip;
