@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Very Important Person</title>
+   <link rel="icon" href="./assets/img/favicon.ico">
+   <link rel="stylesheet" href="./styles/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+</head>
+<body>
+   <header class="flex-container">
+
+      <div class="left">
+         <button class="headerButton" id="settingsButton" >
+            <i class="material-icons" id="homeIcon">home</i>
+            <p class="headerParagraph">Home</p>
+         </button>
+      </div>
+        
+      <div class="center">
+         <h1 class="title" style="color: gold;">Area VIP</h1>
+      </div>
+        
+      <div class="right">
+         <button class="headerButton" id="blank">
+            <i class="material-icons" id="blank">home</i>
+            <p class="headerParagraph" id="blank">home</p>
+         </button>
+      </div>
+   </header>
+
+   <div class="mainBody">
+      <div class="vipAreaMain">
+         <h2 class="subtitle">Carə VIP, anche se qui non c'è nulla, sappi che occupi un posto molto speciale nel mio cuore <3</h2>
+      </div>
+   </div>
+   
+   <footer>
+      <span>Copyright © 2025-2026 Stefano Carletti -- MIT license</span>
+   </footer>
+   <script src="./scripts/script.js"></script>
+   <script src="./scripts/auth.js"></script>
+   <script>
+      fetch("/api/me").then(r => r.json()).then(data => {
+         var logged = data.logged_in;
+         
+         if (!logged) {
+            console.log("Non loggato");
+            alert("You must be logged in to access this area!");
+            window.location.href = "/login";
+         }
+
+         var vip = data.vip;
+
+         if (!vip) {
+            console.log("Non vip");
+            alert("You must be a VIP to access this area!");
+            window.location.href = "/home";
+         }
+      });
+   </script>
+</body>
+</html>

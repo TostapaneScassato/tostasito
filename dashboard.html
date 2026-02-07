@@ -35,7 +35,7 @@
       <div class="accountInfo">
          <h2 class="subtitle">Nome account: <span id="accountName">Lorem ipsum</span></h2>
          <h2 class="subtitle">Account creato il <span id="accountCreatedAt">dolor sit amet</span></h2>
-         <span class="subtitle" id="vipMessage"></span>
+         <a class="subtitle" id="vipMessage" href="/vip"></a>
          <div class="modifyAccount">
             <button class="innerButton" id="modifyAccountButton">
                <i class="material-symbols-outlined" id="modifyAccountIcon">person_edit</i>
@@ -86,6 +86,7 @@
          if (vipMessage && vip) {
             vipMessage.textContent = "Questo account gode di privilegi VIP";
             vipMessage.style.color = 'gold';
+            vipMessage.style.textDecoration = 'none';
          }
       });
    </script>
