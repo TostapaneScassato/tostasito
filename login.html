@@ -32,7 +32,7 @@
 
    <div class="mainBody" id="login">
       <form class="loginForm">
-         <input type="text" name="user_email" placeholder="Username" class="loginInput" required>
+         <input type="text" name="user_email" placeholder="Username o E-Mail" class="loginInput" required>
          <input type="password" name="user_password" placeholder="Password" class="loginInput" required>
          <div class="loginConfirm">
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="loginInput" id="forgotPassword">Password dimenticata?</a>
@@ -45,9 +45,10 @@
       <hr>
       <form class="registerForm">
          <h2>Non hai un'account? Crealo ora!</h2>
-         <input type="text" name="user_new_email" placeholder="New Username" class="registerInput" required>
-         <input type="password" name="user_new_password" placeholder="New Password" class="registerInput" required>
-         <input type="password" name="user_confirm_password" placeholder="Confirm Password" class="registerInput" required">
+         <input type="text" name="user_new_name" placeholder="Nuovo username (obbligatorio)" class="registerInput" required>
+         <input type="text" name="user_new_email" placeholder="Nuova E-Mail (opzionale)" class="registerInput">
+         <input type="password" name="user_new_password" placeholder="Nuova Password" class="registerInput" required>
+         <input type="password" name="user_confirm_password" placeholder="Conferma Password" class="registerInput" required">
          <div class="registerConfirm">
             <button type="submit" class="innerButton">
                <i class="material-icons" id="loginIcon">login</i>

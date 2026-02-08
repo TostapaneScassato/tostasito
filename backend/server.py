@@ -3,8 +3,33 @@ from flask import Flask, request, jsonify, session, redirect
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 from pathlib import Path
+from email_validator import validate_email, EmailNotValidError
 
 """
+DB STRUCTURE:
+
+CREATE TABLE IF NOT EXISTS users:
+--------------+-----------------------------------
+id            | INTEGER PRIMARY KEY AUTOINCREMENT
+username      | TEXT UNIQUE NOT NULL
+password_hash | TEXT NOT NULL
+created_at    | TEXT NOT NULL
+vip           | BOOL DEFAULT 0
+email         | TEXT UNIQUE
+--------------+----------------
+
+CREATE TABLE IF NOT EXISTS user_settings:
+--------+---------------------------------
+user_id | INTEGER NOT NULL
+key     | TEXT NOT NULL
+value   | TEXT DEFAULT ''
+
+PRIMARY KEY (user_id, key)
+FOREIGN KEY (user_id) REFERENCES users(id)
+
+============================================================
+============================================================
+
 API ADDRESSES (/api/*):
 
 NAME     | METHOD | NOTES
@@ -39,6 +64,7 @@ def register():
       return jsonify(error="JSON invalido"), 400
 
    username = data.get("username", "").strip()
+   email    = data.get("email", "").strip()
    password = data.get("password", "")
 
    if len(username) < 3:
@@ -46,6 +72,16 @@ def register():
    if len(password) < 8:
       return jsonify(error="Password troppo corta"), 400
    
+   if email == "":
+      valid_email = ""
+   else:
+      try:
+         valid = validate_email(email)
+         valid_email = valid.email
+      except EmailNotValidError as err:
+         print(str(err))
+         return jsonify(error="Email non valida"), 400
+
    pw_hash = bcrypt.generate_password_hash(password).decode()
 
    conn = get_db()
@@ -53,8 +89,8 @@ def register():
 
    try:
       cur.execute(
-         "INSERT INTO users (username, password_hash, created_at) VALUES (?, ?, ?)",
-         (username, pw_hash, datetime.utcnow().isoformat())
+         "INSERT INTO users (username, email, password_hash, created_at) VALUES (?, ?, ?, ?)",
+         (username, valid_email, pw_hash, datetime.utcnow().isoformat())
       )
 
       conn.commit()
@@ -71,18 +107,31 @@ def login():
    if not data:
       return jsonify(error="JSON invalido"), 400
 
-   username = data.get("username", "")
+   username_or_email = data.get("usernameOrEmail", "").strip()
    password = data.get("password", "")
+
+   is_email = False
+
+   if "@" in username_or_email and "." in username_or_email:
+      try:
+         validate_email(username_or_email)
+         is_email = True
+      except EmailNotValidError:
+         return jsonify(error="Email non valida"), 400
 
    conn = get_db()
    cur = conn.cursor()
 
-   cur.execute("SELECT * FROM users WHERE username = ?", (username, ))
+   if is_email:
+      cur.execute("SELECT * FROM users WHERE email = ?", (username_or_email, ))
+   else:
+      cur.execute("SELECT * FROM users WHERE username = ?", (username_or_email, ))
+
    user = cur.fetchone()
    conn.close()
 
    if not user:
-      return jsonify(error="Il nome utente non esiste"), 401
+      return jsonify(error="Credenziali errate"), 401
    
    if not bcrypt.check_password_hash(user["password_hash"], password):
       return jsonify(error="Password errata"), 401
@@ -158,8 +207,6 @@ def update_settings():
 
    return jsonify(success=True)
 
-# database structure: 'id', 'username', 'password_hash', 'created_at', 'vip'
-# database types:  INTEGER,  TEXT,       TEXT,            TEXT,         BOOL
 @app.get("/api/me")
 def me():
    conn = get_db()
@@ -170,15 +217,16 @@ def me():
 
    user_id = session["user_id"]
 
-   cur.execute("SELECT username, created_at, vip FROM users WHERE id = ?", (user_id, ))
+   cur.execute("SELECT username, email, created_at, vip FROM users WHERE id = ?", (user_id, ))
    row = cur.fetchone()
 
    if not row:
       return jsonify(logged_in=False)
    return jsonify(logged_in=True,
       username=row[0],
-      created_at=row[1],
-      vip=row[2])
+      email=row[1],
+      created_at=row[2],
+      vip=row[3])
 
 @app.post("/api/confirm-password")
 def confirm_password():
@@ -217,6 +265,7 @@ def modify_account():
 
    allowed_fields = {
       "username": str,
+      "email"   : str,
       "password": str
    }
 
@@ -238,6 +287,16 @@ def modify_account():
       if ("username" in updates) and (updates["username"] != ""):
          cur.execute("UPDATE users SET username=? WHERE id=?", (updates["username"], session["user_id"]))
 
+      if ("email" in updates) and (updates["email"] != "") and ("@" in updates["email"]) and ("." in updates["email"]):
+         try:
+            valid = validate_email(updates["email"])
+            valid_email = valid.email
+         except EmailNotValidError as err:
+            print(str(err))
+            return jsonify(error="Email non valida"), 400
+         
+         cur.execute("UPDATE users SET email=? WHERE id=?", (valid_email, session["user_id"]))
+
       if ("password" in updates) and (updates["password"] != ""):
          new_hash = bcrypt.generate_password_hash(updates["password"]).decode()
          cur.execute("UPDATE users SET password_hash=? WHERE id=?", (new_hash, session["user_id"]))
@@ -245,7 +304,7 @@ def modify_account():
       conn.commit()
 
    except sqlite3.IntegrityError:
-      return jsonify(error="Username già esistente"), 409
+      return jsonify(error="Username o email già esistenti"), 409
 
    finally:
       conn.close()

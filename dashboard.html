@@ -39,6 +39,7 @@
    <div class="mainBody" id="dashboard">
       <div class="accountInfo">
          <h2 class="subtitle">Nome account: <span id="accountName">Lorem ipsum</span></h2>
+         <h2 class="subtitle"><span id="accountEmail">Email collegata: ${email}</span></h2>
          <h2 class="subtitle">Account creato il <span id="accountCreatedAt">dolor sit amet</span></h2>
          <a class="subtitle" id="vipMessage" href="/vip"></a>
          <div class="modifyAccount">
@@ -65,6 +66,10 @@
                   <div class="innerFormSection">
                      <h3>Inserisci il nuovo nome utente:</h3>
                      <input type="text" id="changeAccountName" name="newUsername">
+                  </div>
+                  <div class="innerFormSection">
+                     <h3>Inserisci la nuova mail:</h3>
+                     <input type="text" id="changeAccountEmail" name="newEmail">
                   </div>
                   <div class="innerFormSection">
                      <h3>Inserisci la nuova password:</h3>
@@ -101,6 +106,7 @@
          if (mainBody) mainBody.style.opacity = '1';
 
          var username = data.username;
+         var email = data.email;
          var createdAt = data.created_at;
          var vip = data.vip;
 
@@ -114,6 +120,9 @@
 
          const accountName = document.getElementById("accountName");
          if (accountName) accountName.textContent = username;
+
+         accountEmail = document.getElementById("accountEmail");
+         if (accountEmail && email != "") accountEmail.textContent = `Email collegata: ${email}`;
 
          const accountCreatedAt = document.getElementById("accountCreatedAt");
          if (accountCreatedAt) accountCreatedAt.textContent = `${dateDay}-${dateMonth}-${dateYear} alle ${createdAtTimeFormatted} UTC`;

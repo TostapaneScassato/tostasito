@@ -67,7 +67,7 @@ if (loginForm) {
       e.preventDefault();
 
       const formData = new FormData(loginForm);
-      const username = formData.get("user_email");
+      const usernameOrEmail = formData.get("user_email");
       const password = formData.get("user_password");
 
       try {
@@ -75,7 +75,7 @@ if (loginForm) {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify({
-               username: username,
+               usernameOrEmail: usernameOrEmail,
                password: password
             })
          });
@@ -102,7 +102,8 @@ if (registerForm) {
       e.preventDefault();
 
       const formData = new FormData(registerForm);
-      const username = formData.get("user_new_email");
+      const username = formData.get("user_new_name");
+      const email = formData.get("user_new_email");
       const password = formData.get("user_new_password");
       const confPassword = formData.get("user_confirm_password");
 
@@ -117,6 +118,7 @@ if (registerForm) {
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify({
                username: username,
+               email: email,
                password: password
             })
          });
@@ -152,6 +154,7 @@ if (modifyAccountForm) {
       const formData = new FormData(modifyAccountForm);
       const currentPassword = formData.get("confirmPassword");
       const newUsername = formData.get("newUsername");
+      const newEmail = formData.get("newEmail");
       const newPassword = formData.get("newPassword");
 
       try {
@@ -164,6 +167,7 @@ if (modifyAccountForm) {
 
          const updates = {};
          if (newUsername) updates.username = newUsername;
+         if (newEmail)    updates.email    = newEmail;
          if (newPassword) updates.password = newPassword;
 
          if (Object.keys(updates).length === 0) {
@@ -197,6 +201,7 @@ document.getElementById("cancelAccountInfo")?.addEventListener("click", e => {
 
    document.getElementById("changeConfirmPassword").value = "";
    document.getElementById("changeAccountName").value = "";
+   document.getElementById("changeAccountEmail").valid = "";
    document.getElementById("changePassword").value = "";
 
    modifyAccountOverlay.classList.add("hidden");
