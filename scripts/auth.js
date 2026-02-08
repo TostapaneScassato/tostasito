@@ -141,7 +141,7 @@ const logoutButton = document.getElementById("logoutButton");
 if (logoutButton) logoutButton.addEventListener("click", () => {
    logout();
    
-   setTimeout(window.location.href = "/login", 200);
+   window.location.href = "/home";
 })
 
 const modifyAccountForm = document.querySelector("#change-account-form");
