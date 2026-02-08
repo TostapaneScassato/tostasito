@@ -18,7 +18,7 @@
    <header class="flex-container">
 
       <div class="left">
-         <button class="headerButton" id="settingsButton" >
+         <button class="headerButton" id="homeButton" >
             <i class="material-icons" id="homeIcon">home</i>
             <p class="headerParagraph">Home</p>
          </button>
@@ -51,6 +51,32 @@
                <p>Logout</p>
             </button>
          </div>
+      </div>
+
+      <div class="overlay hidden" id="changeAccountInfo">
+            <div class="popup">
+               <h1 class="inner">Modifica le informazioni dell'account</h1>
+               <form id="change-account-form" class="change-account-form">
+
+                  <div class="innerFormSection">
+                     <h3>Conferma la password attuale:</h3>
+                     <input type="password" id="changeConfirmPassword" name="confirmPassword" required>
+                  </div>
+                  <div class="innerFormSection">
+                     <h3>Inserisci il nuovo nome utente:</h3>
+                     <input type="text" id="changeAccountName" name="newUsername">
+                  </div>
+                  <div class="innerFormSection">
+                     <h3>Inserisci la nuova password:</h3>
+                     <input type="password" id="changePassword" name="newPassword">
+                  </div>
+
+                  <div class="popupButtons">
+                     <button class="innerButton" id="saveAccountInfo"   type="submit">Salva informazioni</button>
+                     <button class="innerButton" id="cancelAccountInfo" type="reset">Annulla operazione</button>
+                  </div>
+               </form>
+            </div>
       </div>
    </div>
    <footer>

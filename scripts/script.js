@@ -84,9 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (hiddenPagesButton) hiddenPagesButton.addEventListener("click", () => {
         window.location.href="/hiddenPages";
     })
-    if (modifyAccountButton) modifyAccountButton.addEventListener("click", () => {
-        window.location.href="/workInProgress"
-    })
 
     // pagine nascoste
     const hp_error400 = document.getElementById("hp_error400");

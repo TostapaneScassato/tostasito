@@ -4,6 +4,21 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from pathlib import Path
 
+"""
+API ADDRESSES (/api/*):
+
+NAME     | METHOD | NOTES
+---------+--------+----------------------
+register |  post  | create a new account
+login    |  post  | log into an existing account
+logout   |  post  | remove user from session
+settings |  get   | obtain all settings saved for the user
+"  "     |  post  | update settings for the user
+me       |  get   | obtain user's username, creation date and vip status
+account  |  post  | modify the user's account's data
+confirm-password  |  post  | check if given password is equal to saved password
+"""
+
 app = Flask(__name__)
 app.secret_key = "stringaSuperSegretaDel20012026"
 
@@ -75,7 +90,6 @@ def login():
    session["user_id"] = user["id"]
 
    return jsonify(success=True)
-
 
 @app.post("/api/logout")
 def logout():
@@ -166,6 +180,79 @@ def me():
       created_at=row[1],
       vip=row[2])
 
+@app.post("/api/confirm-password")
+def confirm_password():
+   if "user_id" not in session:
+      return jsonify(error="Non autenticato"), 401
+
+   data = request.json or {}
+   password = data.get("password")
+
+   if not password:
+      return jsonify(error="Password mancante"), 400
+   
+   conn = get_db()
+   cur = conn.cursor()
+
+   cur.execute("SELECT password_hash FROM users WHERE id=?", (session["user_id"],))
+   row = cur.fetchone()
+   conn.close()
+
+   if not row:
+      return jsonify(error="Utente inesistente"), 404
+   
+   password_hash = row["password_hash"]
+
+   if not bcrypt.check_password_hash(password_hash, password):
+      return jsonify(valid=False), 403
+   
+   return jsonify(valid=True)
+
+@app.post("/api/account")
+def modify_account():
+   if "user_id" not in session:
+      return jsonify(error="Non autenticato"), 401
+   
+   data = request.json or {}
+
+   allowed_fields = {
+      "username": str,
+      "password": str
+   }
+
+   updates = {}
+
+   for key, expected_type in allowed_fields.items():
+      if key in data:
+         if not isinstance(data[key], expected_type):
+            return jsonify(error=f"Tipo non valido per {key}"), 400
+         updates[key] = data[key]
+      
+   if not updates:
+      return jsonify(error="Nessun campo da aggiornare"), 400
+   
+   conn = get_db()
+   cur = conn.cursor()
+
+   try:
+      if ("username" in updates) and (updates["username"] != ""):
+         cur.execute("UPDATE users SET username=? WHERE id=?", (updates["username"], session["user_id"]))
+
+      if ("password" in updates) and (updates["password"] != ""):
+         new_hash = bcrypt.generate_password_hash(updates["password"]).decode()
+         cur.execute("UPDATE users SET password_hash=? WHERE id=?", (new_hash, session["user_id"]))
+
+      conn.commit()
+
+   except sqlite3.IntegrityError:
+      return jsonify(error="Username già esistente"), 409
+
+   finally:
+      conn.close()
+
+   return jsonify(success=True)
+
+"""
 # error handlers
 @app.errorhandler(400)
 def bad_request(e):
@@ -182,5 +269,6 @@ def not_found(e):
 @app.errorhandler(405)
 def method_not_allowed(e):
    return redirect("/errors/405")
+"""
 
 app.run(host="0.0.0.0", port=5000)

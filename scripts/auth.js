@@ -27,6 +27,38 @@ async function register(username, password) {
    return data.success;
 }
 
+async function confirmPassword(password) {
+   const res = await fetch("/api/confirm-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({ password})
+   });
+
+   if (!res.ok) return false;
+
+   const data = await res.json();
+   return data.valid === true;
+}
+
+async function modifyAccount(data) {
+   const res = await fetch("/api/account", {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(data)
+   })
+
+   const text = await res.text();
+
+   let json;
+   try {
+      json = JSON.parse(text);
+   } catch {
+      throw new Error("Server response is not JSON: " + text);
+   }
+
+   if (!res.ok) throw new Error(json.error || "Errore");
+   return json;
+}
 
 const loginForm = document.querySelector(".loginForm");
 
@@ -111,3 +143,71 @@ if (logoutButton) logoutButton.addEventListener("click", () => {
    
    setTimeout(window.location.href = "/login", 200);
 })
+
+const modifyAccountForm = document.querySelector("#change-account-form");
+if (modifyAccountForm) {
+   modifyAccountForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(modifyAccountForm);
+      const currentPassword = formData.get("confirmPassword");
+      const newUsername = formData.get("newUsername");
+      const newPassword = formData.get("newPassword");
+
+      try {
+         const procede = await confirmPassword(currentPassword);
+
+         if (!procede) { 
+            alert("Password errata!");
+            return;
+         }
+
+         const updates = {};
+         if (newUsername) updates.username = newUsername;
+         if (newPassword) updates.password = newPassword;
+
+         if (Object.keys(updates).length === 0) {
+            alert("Inserisci almeno l'username o la password");
+            return;
+         } 
+
+         await modifyAccount(updates);
+
+         modifyAccountForm.reset();
+
+         modifyAccountOverlay.classList.add("hidden");
+
+         window.location.reload();
+      } catch (err) {
+         console.error(err);
+         alert(err.message || "Errore nella modifica dell'account")
+      }
+   });
+}
+
+const modifyAccountOverlay = document.getElementById("changeAccountInfo");
+
+document.getElementById("modifyAccountButton")?.addEventListener("click", e => {
+   e.preventDefault();
+   modifyAccountOverlay.classList.remove("hidden");
+})
+
+document.getElementById("cancelAccountInfo")?.addEventListener("click", e => {
+   e.preventDefault();
+
+   document.getElementById("changeConfirmPassword").value = "";
+   document.getElementById("changeAccountName").value = "";
+   document.getElementById("changePassword").value = "";
+
+   modifyAccountOverlay.classList.add("hidden");
+})
+/*
+document.getElementById("saveAccountInfo")?.addEventListener("click", e => {
+   e.preventDefault();
+
+   document.getElementById("changeConfirmPassword").value = "";
+   document.getElementById("changeAccountName").value = "";
+   document.getElementById("changePassword").value = "";
+
+   modifyAccountOverlay.classList.add("hidden");
+})*/
