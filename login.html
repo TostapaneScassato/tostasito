@@ -35,7 +35,7 @@
          <input type="text" name="user_email" placeholder="Username o E-Mail" class="loginInput" required>
          <input type="password" name="user_password" placeholder="Password" class="loginInput" required>
          <div class="loginConfirm">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="loginInput" id="forgotPassword">Password dimenticata?</a>
+            <a onclick="document.getElementById('passwordResetPT1')?.classList.remove('hidden')" class="loginInput" id="forgotPassword" href="#">Password dimenticata?</a>
             <button type="submit" class="innerButton">
                <i class="material-icons" id="loginIcon">login</i>
                <p class="innerParagraph" >Effettua l'accesso</p>
@@ -48,7 +48,7 @@
          <input type="text" name="user_new_name" placeholder="Nuovo username (obbligatorio)" class="registerInput" required>
          <input type="text" name="user_new_email" placeholder="Nuova E-Mail (opzionale)" class="registerInput">
          <input type="password" name="user_new_password" placeholder="Nuova Password" class="registerInput" required>
-         <input type="password" name="user_confirm_password" placeholder="Conferma Password" class="registerInput" required">
+         <input type="password" name="user_confirm_password" placeholder="Conferma Password" class="registerInput" required>
          <div class="registerConfirm">
             <button type="submit" class="innerButton">
                <i class="material-icons" id="loginIcon">login</i>
@@ -56,6 +56,46 @@
             </button>
          </div>
       </form>
+   </div>
+
+   <div class="overlay hidden" id="passwordResetPT1">
+      <div class="popup">
+         <h1 class="inner">Recupero della password</h1>
+         <form id="reset-password-form-1" class="reset-password-form-1">
+
+            <div class="innerFormSection">
+               <h3>Inserisci la mail legata al tuo account:</h3>
+               <input type="text" id="resetPasswordEmail" name="resetPasswordEmail" required>
+            </div>
+            <div class="popupButtons">
+               <button class="innerButton" id="passwordResetSendCode"          type="submit">Invia codice</button>
+               <button class="innerButton" id="passwordResetCancelOperation-1" type="reset" >Annulla operazione</button>
+            </div>
+            <br>
+            <h4>Non hai collegato una mail? Ti perdono, contatta direttamente l'Amministratore:</h4>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Risponderà il prima possibile!</a>
+         </form>
+      </div>
+   </div>
+   <div class="overlay hidden" id="passwordResetPT2">
+      <div class="popup">
+         <h1 class="inner">Abbiamo inviato la Mail</h1>
+         <form id="reset-password-form-2" class="reset-password-form-2">
+
+            <div class="innerFormSection">
+               <h3>Inserisci il codice:</h3>
+               <input type="number" id="resetPasswordVerifyCode" name="resetPasswordVerifyCode" required>
+            </div>
+            <div class="innerFormSection">
+               <h3>Inserisci la tua nuova password:</h3>
+               <input type="password" id="resetPasswordNewPassword" name="resetPasswordNewPassword" required>
+            </div>
+            <div class="popupButtons">
+               <button class="innerButton" id="passwordResetVerifyCode"        type="submit">Reimposta password</button>
+               <button class="innerButton" id="passwordResetCancelOperation-2" type="reset" >Annulla operazione</button>
+            </div>
+         </form>
+      </div>
    </div>
    <footer>
       <span>Copyright © 2025-2026 Stefano Carletti -- MIT license</span>
@@ -67,7 +107,7 @@
          var logged = data.logged_in;
          
          if (logged) {
-            alert("You are already logged in!");
+            //alert("You are already logged in!");
             window.history.back();
          }
       });

@@ -31,7 +31,7 @@ async function confirmPassword(password) {
    const res = await fetch("/api/confirm-password", {
       method: "POST",
       headers: { "Content-Type": "application/json"},
-      body: JSON.stringify({ password})
+      body: JSON.stringify({ password })
    });
 
    if (!res.ok) return false;
@@ -201,18 +201,100 @@ document.getElementById("cancelAccountInfo")?.addEventListener("click", e => {
 
    document.getElementById("changeConfirmPassword").value = "";
    document.getElementById("changeAccountName").value = "";
-   document.getElementById("changeAccountEmail").valid = "";
+   document.getElementById("changeAccountEmail").value = "";
    document.getElementById("changePassword").value = "";
 
    modifyAccountOverlay.classList.add("hidden");
 })
-/*
-document.getElementById("saveAccountInfo")?.addEventListener("click", e => {
+
+let passwordResetUserId = null
+
+const passwordResetFormPT1 = document.querySelector("#reset-password-form-1");
+passwordResetFormPT1?.addEventListener("submit", async e => {
    e.preventDefault();
 
-   document.getElementById("changeConfirmPassword").value = "";
-   document.getElementById("changeAccountName").value = "";
-   document.getElementById("changePassword").value = "";
+   const formData = new FormData(passwordResetFormPT1);
+   const email = formData.get("resetPasswordEmail");
 
-   modifyAccountOverlay.classList.add("hidden");
-})*/
+   try {
+      const res = await fetch("/api/password-reset/confirm-email", {
+         method: "POST",
+         headers: { "Content-Type": "application/json"},
+         body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.valid) {
+         alert(data.error || "La mail inserita non combacia con alcun account");
+         return;
+      }
+
+      passwordResetUserId = data.user_id;
+
+      document.getElementById("passwordResetPT1")?.classList.add("hidden");
+      document.getElementById("passwordResetPT2")?.classList.remove("hidden");
+
+   } catch (error) {
+      console.error(error);
+      alert(error.message || "Errore nella convalida della mail");
+   }
+});
+
+document.getElementById("passwordResetCancelOperation-1")?.addEventListener("click", e => {
+   e.preventDefault();
+   document.getElementById("resetPasswordEmail").value = "";
+   document.getElementById("passwordResetPT1")?.classList.add("hidden");
+})
+
+const passwordResetFormPT2 = document.querySelector("#reset-password-form-2");
+passwordResetFormPT2?.addEventListener("submit", async e => {
+   e.preventDefault();
+
+   const formData = new FormData(passwordResetFormPT2);
+   const code = formData.get("resetPasswordVerifyCode").toString();
+   const newPassword = formData.get("resetPasswordNewPassword");
+   
+   if (!passwordResetUserId) {
+      alert("Errore interno, user_id insesistente");
+      return;
+   }
+
+   try {
+      const res = await fetch("/api/password-reset/verify", {
+         method: "POST",
+         headers: { "Content-Type": "application/json"},
+         body: JSON.stringify({
+            user_id: passwordResetUserId,
+            code: code,
+            password: newPassword
+         })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+         alert(data.error || "Errore nel reset della password");
+         return;
+      }
+
+      alert("Password cambiata con successo!");
+
+      document.getElementById("resetPasswordEmail").value = "";
+      document.getElementById("resetPasswordVerifyCode").value = "";
+      document.getElementById("resetPasswordNewPassword").value = "";
+      document.getElementById("passwordResetPT2")?.classList.add("hidden");
+
+   } catch (error) {
+      console.error(error);
+      alert(error.message || "Errore di rete");
+   }
+});
+
+document.getElementById("passwordResetCancelOperation-2")?.addEventListener("click", e => {
+   e.preventDefault();
+
+   document.getElementById("resetPasswordVerifyCode").value = "";
+   document.getElementById("resetPasswordNewPassword").value = "";
+   document.getElementById("passwordResetPT2")?.classList.add("hidden");
+})

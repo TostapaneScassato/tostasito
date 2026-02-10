@@ -1,9 +1,10 @@
-import sqlite3, json
+import sqlite3, json, random, yagmail, os
 from flask import Flask, request, jsonify, session, redirect
 from flask_bcrypt import Bcrypt
-from datetime import datetime
+from datetime import datetime, timedelta, UTC
 from pathlib import Path
 from email_validator import validate_email, EmailNotValidError
+from dotenv import load_dotenv
 
 """
 DB STRUCTURE:
@@ -26,6 +27,17 @@ value   | TEXT DEFAULT ''
 
 PRIMARY KEY (user_id, key)
 FOREIGN KEY (user_id) REFERENCES users(id)
+-------------------------------------------
+
+CREATE TABLE IF NOT EXISTS password_resets:
+-----------+--------------------------------
+user_id    | INTEGER NOT NULL
+code       | TEXT NOT NULL
+expires_at | TEXT NOT NULL
+used       | INTEGER DEFAULT 0
+
+PRIMARY KEY (user_id),
+FOREIGN KEY (user_id) REFERENCES users(id)
 
 ============================================================
 ============================================================
@@ -42,6 +54,9 @@ settings |  get   | obtain all settings saved for the user
 me       |  get   | obtain user's username, creation date and vip status
 account  |  post  | modify the user's account's data
 confirm-password  |  post  | check if given password is equal to saved password
+password-reset    | 
+\\           \\   |  confirm-email |  post  | check if given email exists and returns user_id
+||           ||   |  verify        |  post  | verifies if code corresponds and repaces password
 """
 
 app = Flask(__name__)
@@ -51,6 +66,13 @@ bcrypt = Bcrypt(app)
 
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "database.db"
+
+ENV_PATH = BASE_DIR.parent / ".env"
+load_dotenv(dotenv_path=ENV_PATH)
+
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASS = os.getenv("SMTP_PASS")
+yag = yagmail.SMTP(SMTP_USER, SMTP_PASS)
 
 def get_db():
    conn = sqlite3.connect(DB_PATH)
@@ -255,6 +277,104 @@ def confirm_password():
       return jsonify(valid=False), 403
    
    return jsonify(valid=True)
+
+@app.post("/api/password-reset/confirm-email")
+def confirm_email():
+   data = request.json or {}
+   email = data.get("email")
+
+   if not email:
+      return jsonify(error="Email mancante"), 400
+   
+   conn = get_db()
+   cur = conn.cursor()
+
+   cur.execute("SELECT id FROM users WHERE email = ?", (email,))
+   row = cur.fetchone()
+
+   if row:
+      user_id = row["id"]
+
+      code = f"{random.randint(0, 999999):06d}"
+      expires_at = (datetime.now(UTC) + timedelta(minutes=10)).isoformat()
+
+      cur.execute("""
+         INSERT INTO password_resets (user_id, code, expires_at, used)
+         VALUES (?, ?, ?, 0)
+         ON CONFLICT (user_id)
+         DO UPDATE SET code=excluded.code,
+                       expires_at=excluded.expires_at,
+                       used=0
+      """, (user_id, code, expires_at))
+
+      conn.commit()
+
+   conn.close()
+
+   subject = "Tostasito - Recupero della password"
+   body = f"""
+   Ciao,
+
+   Mi è giunta voce che hai scordato la password del tuo account.
+   Non ti preoccupare, inserisci il codice {code} per reimpostarla, ma sbrigati, perché scade tra 10 minuti!
+
+   Come dici? Non hai richiesto tu questa mail? Allora ignorala pure, tra 10 minuti il codice finirà nell'oblio e l'hacker rimarrà fregato!
+
+   - Carletti Stefano
+   """
+
+   try:
+      yag.send(to=email, subject=subject, contents=body)
+      print(f"[RECUPERO PASSWORD] Inviata mail di recupero a {email}")
+   except Exception as e:
+      print(f"[ERRORE]-[RECUPERO PASSWORD] Impossibile inviare l'Email: {e}")
+
+   return jsonify(valid=True, user_id=user_id)
+
+@app.post("/api/password-reset/verify")
+def verify_code():
+   data = request.json or {}
+   user_id = data.get("user_id")
+   code = data.get("code")
+   new_password = data.get("password")
+
+   if not user_id or not code or not new_password:
+      return jsonify(error="Campi mancanti"), 400
+   
+   if len(new_password) < 8:
+      return jsonify(error="Password troppo corta"), 400
+   
+   conn = get_db()
+   cur = conn.cursor()
+
+   cur.execute("SELECT code, expires_at, used FROM password_resets WHERE user_id=?", (user_id,))
+   row = cur.fetchone()
+
+   if not row:
+      conn.close()
+      return jsonify(error="Codice di reset insesistente"), 404
+   
+   if row["used"]:
+      conn.close()
+      return jsonify(error="Codice già utilizzato"), 403
+   
+   if row["code"] != code:
+      conn.close()
+      return jsonify(error="Codice errato"), 400
+   
+   expires_at = datetime.fromisoformat(row["expires_at"])
+   if datetime.now(UTC) > expires_at:
+      conn.close()
+      return jsonify(error="Codice scaduto"), 403
+   
+   new_hash = bcrypt.generate_password_hash(new_password).decode()
+   cur.execute("UPDATE users SET password_hash=? WHERE id=?", (new_hash, user_id))
+   cur.execute("UPDATE password_resets SET used=1 WHERE user_id=?", (user_id,))
+   conn.commit()
+   conn.close()
+
+   return jsonify(success=True)
+
 
 @app.post("/api/account")
 def modify_account():

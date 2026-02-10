@@ -65,7 +65,24 @@ h1.title#doubleLine {
     margin-top: 0;
     margin-bottom: 5px;
 }
-h3 {
+h3, h4 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+form>a {
+    color: var(--text-strong);
+    text-decoration: underline;
+    transform: color, 500ms;
+}
+form>a:hover {
+    color: var(--text-strong-hover);
+
+}
+
+input {
     text-align: center;
 }
 
@@ -279,6 +296,12 @@ canvas#pieChart{
     align-items: center;
 }
 
+#reset-password-form-1, .reset-password-form-1,
+#reset-password-form-2, .reset-password-form-2 {
+    height: 75%;
+    padding: 5% 0;
+}
+
 #change-schedule-form, .change-account-form {
     height: 75%;
     margin: 5% 0;
@@ -385,7 +408,9 @@ select.sheduleSelect {
 }
 .innerButton#saveSchedule, .innerButton#cancelSchedule,
 .innerButton#saveTest, .innerButton#cancelTest,
-.innerButton#saveAccountInfo, .innerButton#cancelAccountInfo {
+.innerButton#saveAccountInfo, .innerButton#cancelAccountInfo,
+.innerButton#passwordResetSendCode, .innerButton#passwordResetCancelOperation-1,
+.innerButton#passwordResetVerifyCode, .innerButton#passwordResetCancelOperation-2 {
     height: auto;
     min-width: max-content;
     width: 20%;
