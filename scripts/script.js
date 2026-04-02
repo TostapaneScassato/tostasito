@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginButton = document.getElementById("loginButton");
     const dashboardButton = document.getElementById("dashboardButton");
     const hiddenPagesButton = document.getElementById("hiddenPagesButton");
-    const modifyAccountButton = document.getElementById("modifyAccountButton");
+    const minesweeperButton = document.getElementById("minesweeperButton");
     
     //dove portano i movitori
     if (homeButton) homeButton.addEventListener("click", () => {
@@ -83,6 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (hiddenPagesButton) hiddenPagesButton.addEventListener("click", () => {
         window.location.href="/hiddenPages";
+    })
+    if (minesweeperButton) minesweeperButton.addEventListener("click", () => {
+        window.location.href="/minesweeper";
     })
 
     // pagine nascoste

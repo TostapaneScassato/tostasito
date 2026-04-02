@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Campo Minato</title>
+    <link rel="icon" href="./assets/img/favicon.ico">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+</head>
+<body>
+    <header class="flex-container">
+
+        <div class="left">
+            <button class="headerButton" id="homeButton" >
+                <i class="material-icons" id="homeIcon">home</i>
+                <p class="headerParagraph">Home</p>
+            </button>
+        </div>
+        
+        <div class="center">
+            <h1 class="title">Campo Minato</h1>
+        </div>
+        
+        <div class="right">
+            <button class="headerButton" id="ms-resetButton">
+                <p class="headerParagraph">Reset Game</p>
+                <i class="material-symbols-outlined" id="ms-resetIcon">reset_iso</i>
+            </button>
+        </div>
+    </header>
+
+    <div class="mainBody">
+        <div id="playground" class="ms-playground"></div>
+
+        <nav class="mainNav">
+            <label for="ms-minePercentage" id="ms-minePercentageLabel">Percentuale di mine: 10% </label>
+            <input type="range" name="ms-minePercentage" id="ms-minePercentage" min="5" max="30" step="1" value="10">
+            <!--    COMING SOON
+                <label for="ms-playgroundWidth" id="ms-playgroundWidthLabel">Larghezza: 30 colonne </label>
+                <input type="range" name="ms-playgroundWidth" id="ms-playgroundWidth" min="5" max="60" step="1" value="30">
+                
+                <label for="ms-playgroundHeight" id="ms-playgroundHeightLabel">Altezza: 30 righe </label>
+                <input type="range" name="ms-playgroundHeight" id="ms-playgroundHeight" min="5" max="60" step="1" value="30">
+            -->
+    
+            <button type="reset" id="ms-optionsReset" class="innerButton">Reimposta i valori originali</button>
+    
+        </nav>
+    </div>
+    <footer>
+        <span>Copyright © 2025-2026 Stefano Carletti -- MIT license</span>
+    </footer>
+<script src="./scripts/script.js"></script>
+<script src="./scripts/minesweeper.js"></script>
+</body>
+</html>
