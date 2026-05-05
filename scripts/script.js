@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (diffDays > 0) {
                 nextHoliday = name;
-                daysToHoliday = diffDays;
+                daysToHoliday = countSchoolDays(today, date, holidays);
                 break;
             }
         }
