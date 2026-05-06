@@ -1,0 +1,8 @@
+*.env
+
+assets/img/favicon.png
+assets/img/faviconHD.png
+
+backend/database.db
+
+config
