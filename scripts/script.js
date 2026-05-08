@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hp_error5xx = document.getElementById("hp_error5xx");
     const hp_maintenance = document.getElementById("hp_maintenance");
     const hp_workInProgress = document.getElementById("hp_workInProgress");
+    const hp_emergency = document.getElementById("hp_emergency");
     const hp_stylecss = document.getElementById("hp_stylecss");
     const hp_scriptjs = document.getElementById("hp_scriptjs");
     const hp_robotstxt = document.getElementById("hp_robotstxt");
@@ -121,6 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     if (hp_workInProgress) hp_workInProgress.addEventListener("click", () => {
         window.location.href="/workInProgress";
+    })
+    if (hp_emergency) hp_emergency.addEventListener("click", () => {
+        window.location.href="/errors/emergency";
     })
     if (hp_stylecss) hp_stylecss.addEventListener("click", () => {
         window.location.href="/styles/style.css";
