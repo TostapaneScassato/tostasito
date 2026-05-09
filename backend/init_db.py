@@ -24,5 +24,16 @@ CREATE TABLE IF NOT EXISTS user_settings (
 )
 """)
 
+cur.execute("""
+CREATE TABLE IF NOT EXISTS  password_resets (
+   user_id INTEGER NOT NULL,
+   code TEXT NOT NULL,
+   expires_at TEXT NOT NULL,
+   used INTEGER DEFAULT 0,
+   PRIMARY KEY (user_id),
+   FOREIGN KEY (user_id) REFERENCES users(id)
+)
+""")
+
 conn.commit()
 conn.close()
