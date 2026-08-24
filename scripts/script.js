@@ -186,17 +186,18 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // festività
         const holidays = [
-            ["lla Festa di Tutti i Santi", "2025-11-01"],
-            ["l Patrono di Scandiano", "2025-11-25"],
-            ["ll'Immacolata Concezione", "2025-12-08"],
-            ["lle VACANZE DI NATALE", "2025-12-24"],
-            ["lla fine delle VACANZE DI NATALE :(", "2026-01-06"],
-            ["lle VACANZE DI PASQUA", "2026-04-02"],
-            ["lla fine delle VACANZE DI PASQUA", "2026-04-07"],
-            ["lla Liberazione", "2026-04-25"],
-            ["lla Festa del Lavoro", "2026-05-01"],
-            ["lla Festa della Repubblica", "2026-06-02"],
-            ["lla FINE DELLA SCUOLAAAAAA", "2026-06-06"]
+            ["ll'inizio della scuola :(", "2026-09-15"]
+            ["lla commemorazione dei defunti", "2026-11-02"],
+            ["l Patrono di Scandiano", "2026-11-25"],
+            ["ll'Immacolata Concezione", "2026-12-08"],
+            ["lle VACANZE DI NATALE", "2026-12-24"],
+            ["lla fine delle VACANZE DI NATALE :(", "2027-01-06"],
+            ["lle VACANZE DI PASQUA", "2027-03-25"],
+            ["lla fine delle VACANZE DI PASQUA :(", "2027-03-30"],
+            ["lla Liberazione", "2027-04-25"],
+            ["lla Festa del Lavoro", "2027-05-01"],
+            ["lla Festa della Repubblica", "2027-06-02"],
+            ["lla FINE DELLA SCUOLAAAAAA", "2027-06-05"]
         ]
 
         function countSchoolDays(fromDate, toDate, holidays) {
