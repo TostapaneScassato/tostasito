@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // festività
         const holidays = [
-            ["ll'inizio della scuola :(", "2026-09-15"]
+            ["ll'inizio della scuola :(", "2026-09-15"],
             ["lla commemorazione dei defunti", "2026-11-02"],
             ["l Patrono di Scandiano", "2026-11-25"],
             ["ll'Immacolata Concezione", "2026-12-08"],
