@@ -450,4 +450,5 @@ def method_not_allowed(e):
    return redirect("/errors/405")
 """
 
-app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
