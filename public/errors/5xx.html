@@ -1,14 +1,8 @@
-
-<?php
-$code = $_GET['code'] ?? '500';
-$text = $_GET['text'] ?? 'Internal Server Error (n/a)';
-?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo htmlspecialchars($code) ?> - <?php echo htmlspecialchars($text) ?></title>
+    <title>Server side error - 5xx</title>
     <link rel="icon" href="../assets/img/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -77,7 +71,7 @@ $text = $_GET['text'] ?? 'Internal Server Error (n/a)';
 <body>
     <mark>
         <i class="material-icons" id="title">warning</i>
-        <h1 class="title"><?php echo htmlspecialchars($code) ?> - <?php echo htmlspecialchars($text) ?></h1>
+        <h1 class="title">Errore generico 5xx</h1>
         <i class="material-icons" id="title">warning</i>
     </mark>
     <h2 id="top">Non sei tu, sono io!</h2>

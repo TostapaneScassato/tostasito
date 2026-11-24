@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href="/errors/405";
     })
     if (hp_error5xx) hp_error5xx.addEventListener("click", () => {
-        window.location.href="/errors/5xx?code=200&text=Oll+Korrect";
+        window.location.href="/errors/5xx";
     })
     if (hp_maintenance) hp_maintenance.addEventListener("click", () => {
         window.location.href="/maintenance";
